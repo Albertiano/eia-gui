@@ -1,0 +1,82 @@
+<h3 mat-dialog-title>Edição de Registro</h3>
+
+<mat-dialog-content [formGroup]="form">
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px"
+        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+        <mat-form-field fxFlex="20%">
+          <input matInput eiaDateTime formControlName="competencia" placeholder="Data">
+        </mat-form-field>
+        <mat-form-field fxFlex="20%" formGroupName="tpLancamento">
+          <mat-select formControlName="valor" (selectionChange)="changeTpLancamento($event)" placeholder="Tipo">
+            <mat-option *ngFor="let v of TpLancamento" [value]="v.valor">{{v.descricao}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex="25%">
+          <input matInput formControlName="valor" currencyMask placeholder="Valor">
+        </mat-form-field>
+        <mat-form-field formGroupName="conta" fxFlex="35%">
+          <input matInput readonly formControlName="descricao" placeholder="Conta">
+          <mat-icon matSuffix style="cursor: pointer;" (click)="changeConta()">search</mat-icon>
+        </mat-form-field>
+    </div>
+
+    <div formGroupName="contato" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px"
+      fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+      <mat-form-field fxFlex="45%">
+        <input matInput readonly formControlName="nome" placeholder="Nome">
+        <mat-icon matSuffix style="cursor: pointer;" (click)="changeContato()">search</mat-icon>
+      </mat-form-field>
+      <mat-form-field fxFlex="20%">
+        <input matInput readonly formControlName="fantasia" placeholder="Fantasia">
+      </mat-form-field>
+      <div formGroupName="municipio" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="2px"
+        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0" fxFlex="35%">
+        <mat-form-field fxFlex="75%">
+          <input matInput readonly formControlName="xMun" placeholder="Municipio">
+        </mat-form-field>
+        <mat-form-field fxFlex="25%">
+          <input matInput readonly formControlName="uf" placeholder="UF">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+        <mat-form-field fxFlex="100%">
+          <textarea rows="2" matInput formControlName="descricao" placeholder="Descrição"></textarea>
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px"
+        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+        <mat-form-field fxFlex="30%">
+          <input matInput formControlName="documento" placeholder="Haver">
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+      <div formGroupName="planoContas" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px"
+          fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0" fxFlex="50%">
+        <mat-form-field fxFlex="100%">
+          <input matInput readonly formControlName="descricao" placeholder="Plano de contas">
+          <mat-icon matSuffix style="cursor: pointer;" (click)="changePlanoContas()">search</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div formGroupName="centroCustos" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px"
+          fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0" fxFlex="50%">
+        <mat-form-field fxFlex="100%">
+          <input matInput readonly formControlName="descricao" placeholder="Centro de Custos">
+          <mat-icon matSuffix style="cursor: pointer;" (click)="changeCentroCustos()">search</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button class="mat-raised-button mat-primary" (click)="save()" [disabled]="!form.valid">Salvar</button>
+  <button class="mat-raised-button" (click)="close()">Cancelar</button>
+</mat-dialog-actions>

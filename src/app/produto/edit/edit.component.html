@@ -1,0 +1,78 @@
+<h3 mat-dialog-title>Edição de Registro</h3>
+
+<mat-dialog-content [formGroup]="form">
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px"
+      fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+        <mat-form-field fxFlex="40%">
+          <input matInput formControlName="codigo" placeholder="Código">
+        </mat-form-field>
+        <mat-form-field fxFlex="40%">
+          <input matInput formControlName="referencia" placeholder="Referência">
+        </mat-form-field>
+        <mat-form-field fxFlex="20%" formGroupName="unidade">
+          <input matInput readonly formControlName="sigla" placeholder="Unidade">
+          <mat-icon matSuffix (click)="changeUnidade()">search</mat-icon>
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px"
+        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+        <mat-form-field fxFlex="70%">
+            <input matInput formControlName="descricao" placeholder="Descrição">
+          </mat-form-field>
+        <mat-form-field fxFlex="30%">
+          <input matInput currencyMask [options]="{precision: 4}" (blur)="updateVuntrib()" formControlName="precoVenda" placeholder="Preço">
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px"
+        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+        <mat-form-field fxFlex="30%">
+            <input matInput formControlName="ncm" placeholder="NCM">
+          </mat-form-field>
+        <mat-form-field fxFlex="30%">
+          <input matInput formControlName="cest" placeholder="CEST">
+        </mat-form-field>
+        <mat-form-field fxFlex="40%" formGroupName="tributacao">
+          <input matInput readonly formControlName="nome" placeholder="Tributacao">
+          <mat-icon matSuffix (click)="changeTributacao()">search</mat-icon>
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px"
+        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+        <mat-form-field fxFlex="19%">
+          <input matInput formControlName="cEan" placeholder="Codigo GTIN">
+        </mat-form-field>
+        <mat-form-field fxFlex="19%">
+          <input matInput formControlName="cEanTrib" placeholder="Codigo GTIN Trib.">
+        </mat-form-field>
+        <mat-form-field fxFlex="19%" formGroupName="utrib">
+          <input matInput readonly formControlName="sigla" placeholder="Unid. Tribut.">
+          <mat-icon matSuffix (click)="changeUnidadeTrib()">search</mat-icon>
+        </mat-form-field>
+        <mat-form-field fxFlex="22%">
+          <input matInput currencyMask [options]="{precision: 4}" formControlName="vuntrib" placeholder="Val. Unid. Trib.">
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px"
+        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+        <mat-form-field fxFlex="15%">
+          <input matInput currencyMask [options]="{precision: 3}" formControlName="pesoBruto" placeholder="Peso Bruto">
+        </mat-form-field>
+        <mat-form-field fxFlex="15%">
+          <input matInput currencyMask [options]="{precision: 3}" formControlName="pesoLiquido" placeholder="Peso Liquido">
+        </mat-form-field>
+        <mat-form-field fxFlex="70%">
+          <input matInput formControlName="localizacao" placeholder="Localização">
+        </mat-form-field>
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button class="mat-raised-button mat-primary" (click)="save()" [disabled]="!form.valid">Salvar</button>
+  <button class="mat-raised-button" (click)="close()">Cancelar</button>
+</mat-dialog-actions>

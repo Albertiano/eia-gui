@@ -1,0 +1,15 @@
+<h3 mat-dialog-title>Cancelamento de Nota Fiscal</h3>
+
+<mat-dialog-content [formGroup]="form">
+  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+    fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+      <mat-form-field fxFlex="100%">
+        <input matInput formControlName="motivo" placeholder="Motivo do cancelamento">
+      </mat-form-field>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <button class="mat-raised-button mat-warn" (click)="save()" [disabled]="!form.valid">Confirmar</button>
+    <button class="mat-raised-button" (click)="close()">Voltar</button>
+  </mat-dialog-actions>

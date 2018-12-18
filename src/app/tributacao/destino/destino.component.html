@@ -1,0 +1,28 @@
+<mat-card class="mat-elevation-z8">
+  <div class="responsive-table">
+    <table #table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td mat-cell *matCellDef="let row">{{row.estado}}</td>
+      </ng-container>
+      <ng-container matColumnDef="cfop">
+        <th mat-header-cell *matHeaderCellDef>CFOP</th>
+        <td mat-cell *matCellDef="let row">{{row.cfop}}</td>
+      </ng-container>
+      <ng-container matColumnDef="icms">
+        <th mat-header-cell *matHeaderCellDef>ICMS</th>
+        <td mat-cell *matCellDef="let row">{{row.icms.cstICMS.descricao}}</td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Editar</th>
+        <td mat-cell *matCellDef="let row; let i = index;">
+          <button mat-icon-button color="primary" (click)="edit(i)">
+              <mat-icon aria-label="Editar">mode_edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</mat-card>

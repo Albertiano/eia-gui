@@ -1,0 +1,38 @@
+<h3 mat-dialog-title>Edição de Registro</h3>
+
+<mat-dialog-content [formGroup]="form">
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+        <mat-form-field fxFlex="100%">
+          <input type="email" matInput formControlName="email" placeholder="email">
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+        <mat-form-field fxFlex="40%">
+          <input matInput formControlName="name" placeholder="Nome">
+        </mat-form-field>
+        <mat-form-field fxFlex="60%">
+          <input matInput formControlName="lastName" placeholder="Sobrenome">
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+        <mat-form-field fxFlex="50%">
+          <input type="password" matInput formControlName="password" placeholder="Senha">
+        </mat-form-field>
+        <mat-form-field fxFlex="50%">
+          <input  type="password" matInput #senha placeholder="Confirmação de Senha">
+        </mat-form-field>
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button class="mat-raised-button mat-primary" (click)="save(senha.value)" [disabled]="!form.valid">Salvar</button>
+  <button class="mat-raised-button" (click)="close()">Cancelar</button>
+</mat-dialog-actions>
+

@@ -1,0 +1,65 @@
+<div [formGroup]="icmsForm">
+  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px" style="margin: 20px 20px -10px 20px"
+    fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px"
+      fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0"  fxFlex="100%">
+      <mat-form-field formGroupName="cstICMS" fxFlex="60%">
+        <mat-select formControlName="valor" (selectionChange)="changeCst($event)" placeholder="Situação Tributária">
+          <mat-option *ngFor="let v of cstsICMS" [value]="v.valor">{{v.descricao}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field formGroupName="origem" fxFlex="40%">
+        <mat-select formControlName="valor" (selectionChange)="changeOrigem($event)" placeholder="Origem">
+          <mat-option *ngFor="let v of origens" [value]="v.valor">{{v.descricao}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <mat-card>
+    <mat-card-header>
+        <mat-card-title>ICMS</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px"
+          fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0"  fxFlex="100%">
+
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+        <mat-card-title>ICMS ST</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+          fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0"  fxFlex="100%">
+          <mat-form-field formGroupName="modBCST" fxFlex="35%">
+            <mat-select formControlName="valor" (selectionChange)="changeModICMSST($event)" placeholder="* Modalid. de determ. da BC ICMS ST">
+              <mat-option *ngFor="let v of modICMSST" [value]="v.valor">{{v.descricao}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field fxFlex="13%">
+            <input matInput currencyMask [options]="{precision: 2}" formControlName="pRedBCST" placeholder="% Redução da BC ICMS ST">
+          </mat-form-field>
+          <mat-form-field fxFlex="13%">
+            <input matInput currencyMask [options]="{precision: 2}" formControlName="pMVAST" placeholder="% margem de valor adic. ICMS ST">
+          </mat-form-field>
+          <mat-form-field fxFlex="13%">
+            <input matInput currencyMask [options]="{precision: 2}" formControlName="vBCST" placeholder="* BC ICMS ST">
+          </mat-form-field>
+          <mat-form-field fxFlex="13%">
+            <input matInput currencyMask [options]="{precision: 2}" formControlName="pICMSST" placeholder="* Alíquota do ICMS ST">
+          </mat-form-field>
+          <mat-form-field fxFlex="13%">
+            <input matInput currencyMask [options]="{precision: 2}" formControlName="vICMSST" placeholder="* ICMS ST">
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

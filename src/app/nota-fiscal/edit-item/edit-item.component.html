@@ -1,0 +1,54 @@
+<h3 mat-dialog-title>Edição de Item</h3>
+
+<mat-dialog-content [formGroup]="form">
+
+  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+    fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px" fxFlex="58%"
+      formGroupName="produto" fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+      <mat-form-field fxFlex="25%">
+        <input matInput readonly formControlName="codigo" placeholder="Código">
+      </mat-form-field>
+      <mat-form-field fxFlex="60%">
+        <input matInput readonly formControlName="descricao" placeholder="Descrição">
+      </mat-form-field>
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0px" fxFlex="15%"
+      formGroupName="unidade" fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+        <mat-form-field fxFlex="100%">
+          <input matInput readonly formControlName="sigla" placeholder="Unidade">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-form-field fxFlex="10%">
+      <input matInput formControlName="quantidade" eiaNumero placeholder="Quantidade" (blur)="updateItem()">
+    </mat-form-field>
+    <mat-form-field fxFlex="10%">
+      <input matInput formControlName="precoVenda" eiaNumero minFractionDigits="2" placeholder="Preço" (blur)="updateItem()">
+    </mat-form-field>
+    <mat-form-field fxFlex="12%">
+      <input matInput readonly formControlName="subtotal" eiaNumero minFractionDigits="2" placeholder="Subtotal">
+    </mat-form-field>
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0px" fxFlex="10%"
+      formGroupName="detFiscal" fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+      <mat-form-field fxFlex="100%">
+        <input matInput formControlName="cfop" placeholder="CFOP">
+      </mat-form-field>
+    </div>
+  </div>
+  <mat-tab-group>
+    <mat-tab label="ICMS">
+      <eia-icms [icms]="form.get('detFiscal').get('icms').value" (valuesChange)="updateIcms($event)"></eia-icms>
+    </mat-tab>
+    <mat-tab label="IPI">
+      <eia-ipi [ipi]="form.get('detFiscal').get('ipi').value" (valuesChange)="updateIpi($event)"></eia-ipi>
+    </mat-tab>
+  </mat-tab-group>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button class="mat-raised-button mat-primary" (click)="save()" [disabled]="!form.valid">Salvar</button>
+  <button class="mat-raised-button" (click)="close()">Cancelar</button>
+</mat-dialog-actions>

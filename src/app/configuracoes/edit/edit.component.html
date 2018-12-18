@@ -1,0 +1,46 @@
+<mat-card class="mat-elevation-z8">
+    <mat-grid-list cols="2" rowHeight="350px">
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>
+                Status de Serviços
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-actions style="text-align: center">
+              <button class="mat-raised-button mat-primary" (click)="statusServico()">Consultar</button>
+            </mat-card-actions>
+          </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <mat-card class="dashboard-card">
+            <mat-card-header>
+              <mat-card-title>
+                Certificado Digital
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="dashboard-card-content">
+              <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+                fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+                <mat-form-field fxFlex="100%">
+                  <input matInput readonly formControlName="certificadoFile" placeholder="Certificado">
+                  <mat-icon matSuffix (click)="changeFile()">search</mat-icon>
+                </mat-form-field>
+                <input type="file" accept=".pfx" hidden (change)="onFileChange($event)" #fileInput>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+                fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+                <mat-form-field fxFlex="100%">
+                  <input matInput type="password" formControlName="certificadoSenha" placeholder="Senha do Certificado">
+                </mat-form-field>
+              </div>
+            </mat-card-content>
+            <mat-card-actions style="text-align: center">
+              <button type="submit" [disabled]="form.invalid || loading" class="mat-raised-button mat-primary">Enviar</button>
+            </mat-card-actions>
+          </mat-card>
+        </form>
+      </mat-grid-tile>
+    </mat-grid-list>
+</mat-card>

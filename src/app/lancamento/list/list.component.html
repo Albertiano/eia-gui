@@ -1,0 +1,81 @@
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+  fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+  <mat-card class="mat-elevation-z6" fxFlex="930px">
+    <div class="loading-shade" *ngIf="dataSource.loading$ | async">
+      <mat-spinner *ngIf="dataSource.loading$ | async"></mat-spinner>
+    </div>
+
+    <div [formGroup]="searchForm" class="search-bar" [@toggleSearch]="searchBarState">
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+        <mat-form-field fxFlex="20%">
+          <input matInput eiaDateTime formControlName="ini" placeholder="Data Inicial">
+        </mat-form-field>
+        <mat-form-field fxFlex="20%">
+          <input matInput eiaDateTime formControlName="fim" placeholder="Data Final">
+        </mat-form-field>
+        <mat-form-field fxFlex="30%">
+          <input matInput formControlName="searchControl" placeholder="O que você está procurando?">
+          <mat-icon matSuffix style="cursor: pointer;" (click)="find()">search</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="responsive-table">
+      <table #table mat-table [dataSource]="dataSource" matSort matSortActive="competencia" matSortDisableClear matSortDirection="desc">
+        <ng-container matColumnDef="competencia">
+          <th mat-header-cell *matHeaderCellDef fxLayoutAlign="center center" fxFlex="110px">Data</th>
+          <td mat-cell *matCellDef="let row" fxLayoutAlign="center center" fxFlex="110px">{{row.competencia | moment}}</td>
+        </ng-container>
+        <ng-container matColumnDef="contato">
+          <th mat-header-cell *matHeaderCellDef fxLayoutAlign="center center" fxFlex="140px">Contato</th>
+          <td mat-cell *matCellDef="let row" fxLayoutAlign="start center" fxFlex="140px">{{row.contato.fantasia}}</td>
+        </ng-container>
+        <ng-container matColumnDef="descricao">
+          <th mat-header-cell *matHeaderCellDef fxLayoutAlign="center center" fxFlex="250px">Descricao</th>
+          <td mat-cell *matCellDef="let row" fxLayoutAlign="start center" fxFlex="250px">{{row.descricao}}</td>
+        </ng-container>
+        <ng-container matColumnDef="valor">
+          <th mat-header-cell *matHeaderCellDef fxLayoutAlign="center center" fxFlex="100px">Valor</th>
+          <td mat-cell fxLayoutAlign="end center" fxFlex="100px" *matCellDef="let row" [ngClass]="{'debito': 'D' == row.tpLancamento.valor, 'credito': 'C' == row.tpLancamento.valor}">
+            {{row.valor | number:'1.2-2'}} {{row.tpLancamento.valor}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="documento">
+          <th mat-header-cell *matHeaderCellDef fxLayoutAlign="center center" fxFlex="100px">Haver</th>
+          <td mat-cell *matCellDef="let row" class="haver" fxLayoutAlign="end center" fxFlex="100px">{{row.documento}}</td>
+        </ng-container>
+        <ng-container matColumnDef="conta">
+          <th mat-header-cell *matHeaderCellDef fxLayoutAlign="center center" fxFlex="100px">Conta</th>
+          <td mat-cell *matCellDef="let row" fxLayoutAlign="start center" fxFlex="100px">{{row.conta.descricao}}</td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef fxLayoutAlign="center center" fxFlex="80px">
+            <button mat-icon-button (click)="toggleSearch()">
+              <mat-icon aria-label="pesquisar">search</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" (click)="novo()">
+              <mat-icon aria-label="novo">add</mat-icon>
+          </button>
+          </th>
+          <td mat-cell *matCellDef="let row" fxLayoutAlign="center center" fxFlex="80px">
+            <button mat-icon-button color="primary" (click)="edit(row)">
+              <mat-icon aria-label="Editar">mode_edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="remove(row)">
+              <mat-icon aria-label="Remover">delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator #paginator showFirstLastButtons
+        [length]="dataSource.count$ | async"
+        [pageSize]="props.pageSize"
+        [pageSizeOptions]="[5, 9, 10, 15, 25, 100]">
+    </mat-paginator>
+    </div>
+  </mat-card>
+</div>
+

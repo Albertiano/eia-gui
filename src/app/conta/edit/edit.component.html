@@ -1,0 +1,24 @@
+<h3 mat-dialog-title>Edição de Registro</h3>
+
+<mat-dialog-content [formGroup]="form">
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+        <mat-form-field fxFlex="90%">
+          <input matInput formControlName="descricao" placeholder="Descrição">
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+        <mat-form-field fxFlex="30%">
+          <input matInput readonly formControlName="saldo" currencyMask placeholder="Saldo">
+        </mat-form-field>
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button class="mat-raised-button mat-primary" (click)="save()" [disabled]="!form.valid">Salvar</button>
+  <button class="mat-raised-button" (click)="close()">Cancelar</button>
+</mat-dialog-actions>

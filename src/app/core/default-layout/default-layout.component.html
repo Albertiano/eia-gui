@@ -1,0 +1,41 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport="true"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="!(isHandset$ | async)">
+    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item href="#" [routerLink]="['/']" (click)="toggle(drawer)">Dashboard</a>
+      <a mat-list-item href="#" [routerLink]="['/nota-fiscal']" (click)="toggle(drawer)">Nota Fiscal</a>
+      <a mat-list-item href="#" [routerLink]="['/empresa']" (click)="toggle(drawer)">Empresas</a>
+      <a mat-list-item href="#" [routerLink]="['/contato']" (click)="toggle(drawer)">Contatos</a>
+      <a mat-list-item href="#" [routerLink]="['/produto']" (click)="toggle(drawer)">Produtos</a>
+      <a mat-list-item href="#" [routerLink]="['/unidade']" (click)="toggle(drawer)">Unidades</a>
+      <a mat-list-item href="#" [routerLink]="['/tributacao']" (click)="toggle(drawer)">Tributos</a>
+      <a mat-list-item href="#" [routerLink]="['/lancamento']" (click)="toggle(drawer)">Caixa</a>
+      <a mat-list-item href="#" [routerLink]="['/conta']" (click)="toggle(drawer)">Contas</a>
+      <a mat-list-item href="#" [routerLink]="['/centro-custos']" (click)="toggle(drawer)">Centros de Custos</a>
+      <a mat-list-item href="#" [routerLink]="['/plano-contas']" (click)="toggle(drawer)">Plano de Contas</a>
+      <a mat-list-item href="#" [routerLink]="['/configuracoes']" (click)="toggle(drawer)">Configurações</a>
+      <a mat-list-item href="#" [routerLink]="['/login']">Sair</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="0px">
+      <mat-toolbar color="primary" class="mat-elevation-z6">
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <h1 focusOnNavigation>{{ getTitle() }}</h1>
+        <span style="flex: 1 1 auto;"></span>
+        <h1>{{ getEmpresa() }}</h1>
+      </mat-toolbar>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="0px">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

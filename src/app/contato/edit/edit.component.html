@@ -1,0 +1,110 @@
+<h3 mat-dialog-title>Edição de Registro</h3>
+
+<mat-dialog-content [formGroup]="form">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+      <mat-form-field fxFlex="20%">
+        <mat-select formControlName="tpDoc" placeholder="Tipo de documento">
+            <mat-option value="CPF">CPF</mat-option>
+            <mat-option value="CNPJ">CNPJ</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field fxFlex="30%">
+          <input matInput eiaCpfCnpj formControlName="numDoc" placeholder="CPF ou CNPJ">
+      </mat-form-field>
+      <mat-form-field fxFlex="25%">
+          <input matInput formControlName="ie" placeholder="Insc. Estadual">
+      </mat-form-field >
+      <mat-form-field fxFlex="25%">
+          <input matInput formControlName="isuf" placeholder="Insc. SUFRAMA">
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+        <mat-form-field fxFlex="65%">
+          <input matInput formControlName="nome" placeholder="Nome">
+        </mat-form-field>
+        <mat-form-field fxFlex="35%">
+          <input matInput formControlName="fantasia" placeholder="Fantasia">
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+      <mat-form-field fxFlex="85%">
+        <input matInput formControlName="logradouro" placeholder="Endereço">
+      </mat-form-field>
+      <mat-form-field fxFlex="15%">
+        <input matInput formControlName="numero" placeholder="Numero">
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+      <mat-form-field fxFlex="45%">
+        <input matInput formControlName="complemento" placeholder="Complemento">
+      </mat-form-field>
+      <mat-form-field fxFlex="35%">
+        <input matInput formControlName="bairro" placeholder="Bairro">
+      </mat-form-field>
+      <mat-form-field fxFlex="20%">
+        <input matInput eiaCep formControlName="cep" placeholder="CEP">
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+      fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+          fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0" fxFlex="35%">
+
+          <mat-form-field formGroupName="pais" fxFlex="100%">
+            <mat-select formControlName="cPais" (selectionChange)="changePais($event)" placeholder="Pais">
+              <mat-option *ngFor="let v of paises" [value]="v.cPais">{{v.xPais}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px" formGroupName="municipio"
+          fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0" fxFlex="65%">
+
+            <mat-form-field fxFlex="30%">
+              <mat-select formControlName="uf" (selectionChange)="changeUF($event)" placeholder="UF">
+                <mat-option *ngFor="let v of ufs" [value]="v">{{v}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field fxFlex="70%">
+              <mat-select formControlName="cMun" (selectionChange)="changeMunicipio($event)" placeholder="Municipio">
+                <mat-option *ngFor="let v of municipios" [value]="v.cMun">{{v.xMun}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+      fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+
+          <mat-form-field fxFlex="25%">
+            <input matInput eiaFone formControlName="fone" placeholder="Telefone">
+          </mat-form-field>
+
+          <mat-form-field fxFlex="25%">
+            <input matInput eiaFone formControlName="foneRes" placeholder="Telefone Fixo">
+          </mat-form-field>
+
+          <mat-form-field fxFlex="50%">
+            <input matInput formControlName="email" placeholder="email">
+          </mat-form-field>
+
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button class="mat-raised-button mat-primary" (click)="save()" [disabled]="!form.valid">Salvar</button>
+  <button class="mat-raised-button" (click)="close()">Cancelar</button>
+</mat-dialog-actions>

@@ -1,0 +1,389 @@
+<h3 mat-dialog-title>Edição de Nota Fiscal</h3>
+
+<mat-dialog-content [formGroup]="form">
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px"
+       fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+       <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px" fxFlex="85%"
+         fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+          <mat-form-field fxFlex="20%" formGroupName="finNFe">
+            <mat-select formControlName="valor" (selectionChange)="changeFinNFe($event)" placeholder="Finalidade NF-e">
+              <mat-option *ngFor="let v of FinNFe" [value]="v.valor">{{v.descricao}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field fxFlex="10%">
+            <input matInput formControlName="serie" placeholder="Serie">
+          </mat-form-field>
+          <mat-form-field fxFlex="20%">
+            <input matInput formControlName="numero" placeholder="Numero">
+          </mat-form-field>
+          <mat-form-field fxFlex="50%">
+            <input matInput formControlName="chave" placeholder="Chave de Acesso">
+          </mat-form-field>
+        </div>
+          <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0px" fxFlex="15%"
+          fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+          <mat-form-field fxFlex="100%">
+            <input matInput readonly formControlName="sitNfe" placeholder="Status">
+          </mat-form-field>
+        </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px"
+        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+        <div formGroupName="dest" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px"
+          fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0" fxFlex="85%">
+            <mat-form-field fxFlex="40%">
+              <input matInput readonly formControlName="nome" placeholder="Nome">
+              <mat-icon matSuffix style="cursor: pointer;" (click)="changeDest()">search</mat-icon>
+            </mat-form-field>
+            <mat-form-field fxFlex="20%">
+              <input matInput eiaCpfCnpj readonly formControlName="numDoc" placeholder="CNPJ / CPF">
+            </mat-form-field>
+            <div formGroupName="municipio" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="2px"
+              fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0" fxFlex="40%">
+              <mat-form-field fxFlex="80%">
+                <input matInput readonly formControlName="xMun" placeholder="Municipio">
+              </mat-form-field>
+              <mat-form-field fxFlex="20%">
+                <input matInput readonly formControlName="uf" placeholder="UF">
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0px" fxFlex="15%"
+            fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+            <mat-form-field fxFlex="100%">
+              <input matInput eiaDateTime formControlName="dhEmi" placeholder="Emissão">
+            </mat-form-field>
+          </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px"
+      fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px"
+           fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0" fxFlex="85%">
+          <mat-form-field fxFlex="15%" formGroupName="tpNF">
+            <mat-select formControlName="valor" (selectionChange)="changeTpNF($event)" placeholder="Tipo de Operaçao">
+              <mat-option *ngFor="let v of TpNF" [value]="v.valor">{{v.descricao}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field fxFlex="40%">
+            <input matInput formControlName="natOp" placeholder="Natureza da Operaçao">
+          </mat-form-field>
+          <mat-form-field fxFlex="15%" formGroupName="idDest">
+            <mat-select formControlName="valor" (selectionChange)="changeIdDest($event)" placeholder="Destino da Operaçao">
+              <mat-option *ngFor="let v of IdDest" [value]="v.valor">{{v.descricao}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field fxFlex="15%" formGroupName="indFinal">
+            <mat-select formControlName="valor" (selectionChange)="changeIndFinal($event)" placeholder="Consumidor Final">
+              <mat-option *ngFor="let v of IndFinal" [value]="v.valor">{{v.descricao}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field fxFlex="15%" formGroupName="indPres">
+            <mat-select formControlName="valor" (selectionChange)="changeIndPres($event)" placeholder="Tipo de atendimento">
+              <mat-option *ngFor="let v of IndPres" [value]="v.valor">{{v.descricao}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0px" fxFlex="15%"
+          fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+          <mat-form-field fxFlex="100%">
+            <input matInput eiaDateTime formControlName="dhSaiEnt" placeholder="Saída/Entrada">
+          </mat-form-field>
+        </div>
+    </div>
+
+    <mat-tab-group color="primary">
+      <mat-tab label="Produtos">
+        <div class="itens-transp">
+          <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+            fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+            <mat-form-field fxFlex="13%">
+              <input matInput eiaDateTime #itemCodigo placeholder="Código">
+              <mat-icon matSuffix style="cursor: pointer;" (click)="changeProduto()">search</mat-icon>
+            </mat-form-field>
+            <mat-form-field fxFlex="40%">
+              <input matInput readonly #itemDesc placeholder="Descrição">
+            </mat-form-field>
+            <mat-form-field fxFlex="5%">
+              <input matInput readonly #itemUn placeholder="Unidade">
+            </mat-form-field>
+            <mat-form-field fxFlex="13%">
+              <input matInput #itemQuant eiaNumero placeholder="Quantidade" (blur)="updateItem()">
+            </mat-form-field>
+            <mat-form-field fxFlex="13%">
+              <input matInput #itemPreco eiaNumero minFractionDigits="2" placeholder="Preço" (blur)="updateItem()" (keyup.enter)="addItem()">
+            </mat-form-field>
+            <mat-form-field fxFlex="18%">
+              <input readonly matInput #itemSubt eiaNumero minFractionDigits="2" placeholder="Subtotal">
+              <mat-icon matSuffix style="cursor: pointer;" (click)="addItem()">add_box</mat-icon>
+            </mat-form-field>
+          </div>
+          <mat-card class="mat-elevation-z2">
+            <div class="responsive-table">
+              <table #table mat-table [dataSource]="dataSource">
+                <ng-container matColumnDef="descricao">
+                  <th mat-header-cell *matHeaderCellDef>Descrição</th>
+                  <td mat-cell *matCellDef="let row">{{row.produto.descricao}}</td>
+                </ng-container>
+                <ng-container matColumnDef="cfop">
+                  <th mat-header-cell *matHeaderCellDef>CFOP</th>
+                  <td mat-cell *matCellDef="let row">{{row.detFiscal.cfop}}</td>
+                </ng-container>
+                <ng-container matColumnDef="quantidade">
+                  <th mat-header-cell *matHeaderCellDef>Quantidade</th>
+                  <td mat-cell *matCellDef="let row">{{row.quantidade | number : '1.0-3'}}</td>
+                </ng-container>
+                <ng-container matColumnDef="unidade">
+                  <th mat-header-cell *matHeaderCellDef>Unidade</th>
+                  <td mat-cell *matCellDef="let row">{{row.produto.unidade.sigla}}</td>
+                </ng-container>
+                <ng-container matColumnDef="precoVenda">
+                  <th mat-header-cell *matHeaderCellDef>Preço</th>
+                  <td mat-cell *matCellDef="let row">{{row.precoVenda | number : '1.2-4'}}</td>
+                </ng-container>
+                <ng-container matColumnDef="subtotal">
+                  <th mat-header-cell *matHeaderCellDef>Subtotal</th>
+                  <td mat-cell *matCellDef="let row">{{row.subtotal | number : '1.2-2'}}</td>
+                </ng-container>
+                <ng-container matColumnDef="actions">
+                  <th mat-header-cell *matHeaderCellDef>Editar</th>
+                  <td mat-cell *matCellDef="let row; let i = index;">
+                    <button mat-icon-button color="primary" (click)="editItem(i)">
+                        <mat-icon aria-label="Editar">mode_edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="remove(i)">
+                      <mat-icon aria-label="Remover">delete</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </div>
+          </mat-card>
+        </div>
+      </mat-tab>
+      <mat-tab label="Transporte" formGroupName="transp">
+        <mat-card class="mat-elevation-z2 itens-transp">
+
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px"
+              fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+              <mat-form-field fxFlex="40%" formGroupName="modFrete">
+                <mat-select formControlName="valor" (selectionChange)="changeModFrete($event)" placeholder="Modalidade do Frete">
+                  <mat-option *ngFor="let v of ModFrete" [value]="v.valor">{{v.descricao}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <mat-tab-group>
+                <mat-tab label="Transportador">
+                  <div formGroupName="transporta" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px"
+                      fxLayout.xs="column" fxLayoutAlign.xs="center center" fxLayoutGap.xs="0">
+                        <mat-form-field fxFlex="40%">
+                          <input matInput readonly formControlName="nome" placeholder="Nome">
+                          <mat-icon matSuffix style="cursor: pointer;" (click)="changeTransporta()">search</mat-icon>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="20%">
+                          <input matInput eiaCpfCnpj readonly formControlName="numDoc" placeholder="CNPJ / CPF">
+                        </mat-form-field>
+                        <div formGroupName="municipio" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="2px"
+                          fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0" fxFlex="40%">
+                          <mat-form-field fxFlex="80%">
+                            <input matInput readonly formControlName="xMun" placeholder="Municipio">
+                          </mat-form-field>
+                          <mat-form-field fxFlex="20%">
+                            <input matInput readonly formControlName="uf" placeholder="UF">
+                          </mat-form-field>
+                        </div>
+                  </div>
+                  <div formGroupName="veicTransp" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px"
+                      fxLayout.xs="column" fxLayoutAlign.xs="center center" fxLayoutGap.xs="0">
+                    <mat-form-field fxFlex="15%">
+                      <input matInput formControlName="placa" placeholder="Placa">
+                    </mat-form-field>
+                    <mat-form-field fxFlex="10%">
+                      <mat-select formControlName="uf" placeholder="UF">
+                        <mat-option *ngFor="let v of ufs" [value]="v">{{v}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25%">
+                      <input matInput formControlName="rntc" placeholder="RNTC">
+                    </mat-form-field>
+                  </div>
+                </mat-tab>
+            </mat-tab-group>
+
+        </mat-card>
+      </mat-tab>
+      <mat-tab label="Notas Referenciadas">
+        <div class="itens-transp">
+          <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+            fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+            <mat-form-field fxFlex="60%">
+              <input matInput #chaveNFRef placeholder="Chave de Acesso">
+              <mat-icon matSuffix style="cursor: pointer;" (click)="addNFRef()">add_box</mat-icon>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+            fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+            <mat-card class="mat-elevation-z2" fxFlex="60%">
+              <div class="responsive-table">
+                <table #tableNFRef mat-table [dataSource]="dataSourceNFRef">
+                  <ng-container matColumnDef="refNFe">
+                    <th mat-header-cell *matHeaderCellDef>Chave de Acesso da NF-e referenciada</th>
+                    <td mat-cell *matCellDef="let row">{{row.refNFe}}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let row; let i = index;">
+                      <button mat-icon-button color="warn" (click)="removeNFRef(i)">
+                        <mat-icon aria-label="Remover">delete</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumnsNFRef"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumnsNFRef;"></tr>
+                </table>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Pagamento">
+        <div class="itens-transp">
+          <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+            fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+            <mat-form-field fxFlex="20%">
+              <mat-select (selectionChange)="changeIndPag($event)" placeholder="Forma de Pagamento">
+                <mat-option *ngFor="let v of formasPag" [value]="v.valor">{{v.descricao}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex="20%">
+              <mat-select (selectionChange)="changeTpPag($event)" placeholder="Meio de Pagamento">
+                <mat-option *ngFor="let v of tiposPag" [value]="v.valor">{{v.descricao}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex="20%">
+              <input matInput #vPag eiaNumero minFractionDigits="2" placeholder="Valor">
+              <mat-icon matSuffix style="cursor: pointer;" (click)="addDetPag()">add_box</mat-icon>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+            fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+            <mat-card class="mat-elevation-z2" fxFlex="60%">
+              <div class="responsive-table">
+                <table #tableNFRef mat-table [dataSource]="dataSourcePag">
+                  <ng-container matColumnDef="indPag">
+                    <th mat-header-cell *matHeaderCellDef>Forma de Pagamento</th>
+                    <td mat-cell *matCellDef="let row">{{row.indPag.descricao}}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="tPag">
+                    <th mat-header-cell *matHeaderCellDef>Meio de Pagamento</th>
+                    <td mat-cell *matCellDef="let row">{{row.tPag.descricao}}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="vPag">
+                    <th mat-header-cell *matHeaderCellDef>Valor</th>
+                    <td mat-cell *matCellDef="let row">{{row.vPag | number : '1.2-4'}}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let row; let i = index;">
+                      <button mat-icon-button color="warn" (click)="removePag(i)">
+                        <mat-icon aria-label="Remover">delete</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumnsPag"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumnsPag;"></tr>
+                </table>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+
+    <mat-tab-group  color="primary">
+        <mat-tab label="Totais" formGroupName="total">
+            <mat-card class="mat-elevation-z2">
+                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+                  fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+                  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px" fxFlex="80%"
+                    fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+                    <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="0px"
+                      fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+                      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+                        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+                        <mat-form-field fxFlex="16%">
+                          <input matInput readonly currencyMask formControlName="vbc" placeholder="BC ICMS">
+                        </mat-form-field>
+                        <mat-form-field fxFlex="16%">
+                          <input matInput readonly currencyMask formControlName="vicms" placeholder="Valor ICMS">
+                        </mat-form-field>
+                        <mat-form-field fxFlex="16%">
+                          <input matInput readonly currencyMask formControlName="vbcst" placeholder="BC ICMS ST">
+                        </mat-form-field>
+                        <mat-form-field fxFlex="16%">
+                          <input matInput readonly currencyMask formControlName="vst" placeholder="Valor ICMS ST">
+                        </mat-form-field>
+                        <mat-form-field fxFlex="16%">
+                          <input matInput readonly currencyMask formControlName="vipi" placeholder="Valor IPI">
+                        </mat-form-field>
+                        <mat-form-field fxFlex="16%">
+                          <input matInput readonly currencyMask formControlName="vProd" placeholder="Valor Produtos">
+                        </mat-form-field>
+                      </div>
+                      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+                        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+                        <mat-form-field fxFlex="16%">
+                          <input matInput readonly currencyMask formControlName="vpis" placeholder="PIS">
+                        </mat-form-field>
+                        <mat-form-field fxFlex="16%">
+                          <input matInput readonly currencyMask formControlName="vcofins" placeholder="COFINS">
+                        </mat-form-field>
+                        <mat-form-field fxFlex="16%">
+                          <input matInput readonly currencyMask formControlName="vFrete" placeholder="Frete">
+                        </mat-form-field>
+                        <mat-form-field fxFlex="16%">
+                          <input matInput readonly currencyMask formControlName="vSeg" placeholder="Seguro">
+                        </mat-form-field>
+                        <mat-form-field fxFlex="16%">
+                          <input matInput readonly currencyMask formControlName="vOutro" placeholder="Outras Despesas">
+                        </mat-form-field>
+                        <mat-form-field fxFlex="16%">
+                          <input matInput readonly currencyMask formControlName="vDesc" placeholder="Desconto">
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px" fxFlex="20%"
+                    fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+                    <mat-form-field fxFlex="70%">
+                        <input matInput readonly currencyMask formControlName="vnf" placeholder="Total da Nota">
+                    </mat-form-field>
+                  </div>
+                </div>
+            </mat-card>
+        </mat-tab>
+        <mat-tab label="Inf. Adicionais"  formGroupName="infAdic">
+            <mat-card class="mat-elevation-z2">
+                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+                  fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+                  <mat-form-field fxFlex="50%">
+                    <textarea matInput rows="5" formControlName="infCpl" placeholder="Informações Adicionais Contribuinte"></textarea>
+                  </mat-form-field>
+                  <mat-form-field fxFlex="50%">
+                    <textarea matInput rows="5" formControlName="infAdFisco" placeholder="Informações Adicionais Fisco"></textarea>
+                  </mat-form-field>
+                </div>
+            </mat-card>
+        </mat-tab>
+      </mat-tab-group>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button class="mat-raised-button mat-primary" (click)="save()" [disabled]="!form.valid">Salvar</button>
+  <button class="mat-raised-button" (click)="close()">Cancelar</button>
+</mat-dialog-actions>

@@ -1,0 +1,19 @@
+<h3 mat-dialog-title>Deseja Remover o Registro?</h3>
+
+<mat-dialog-content class="text-center">
+  <p>{{registro.nome}}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions  align="center">
+
+    <button class="mat-raised-button"
+            (click)="close()">
+        Cancelar
+    </button>
+
+    <button class="mat-raised-button mat-primary "
+            (click)="save()">
+        Confirmar
+    </button>
+
+</mat-dialog-actions>

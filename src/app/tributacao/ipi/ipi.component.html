@@ -1,0 +1,52 @@
+<div [formGroup]="form">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px"
+      fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+      <mat-form-field formGroupName="cstIPI" fxFlex="40%">
+        <mat-select formControlName="valor" (selectionChange)="changeCst($event)" placeholder="Situação Tributária">
+          <mat-option *ngFor="let v of csts" [value]="v.valor">{{v.descricao}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px"
+      fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+      <mat-form-field fxFlex="25%">
+        <input matInput formControlName="cEnq" placeholder="*Código de Enquadramento">
+      </mat-form-field>
+      <mat-form-field fxFlex="25%">
+        <input matInput formControlName="cnpjprod" placeholder="CNPJ do Produtor">
+      </mat-form-field>
+      <mat-form-field fxFlex="25%">
+        <input matInput formControlName="cSelo" placeholder="Codigo do Selo de Controle">
+      </mat-form-field>
+      <mat-form-field fxFlex="25%">
+        <input matInput formControlName="qSelo" placeholder="Qtd. do Selo de Controle">
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px"
+      fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+      <mat-form-field formGroupName="tpCalcIPI" fxFlex="25%">
+        <mat-select formControlName="valor" (selectionChange)="changeTpCalc($event)" placeholder="Tipo de Calculo">
+          <mat-option *ngFor="let v of tpsCalc" [value]="v.valor">{{v.descricao}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px"
+      fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+      <mat-form-field fxFlex="20%">
+        <input matInput currencyMask [options]="{precision: 2}" formControlName="vBCIPI" placeholder="Valor da Base de Calculo">
+      </mat-form-field>
+      <mat-form-field fxFlex="20%">
+        <input matInput currencyMask [options]="{precision: 2}" formControlName="pIPI" placeholder="Alíquota (%)">
+      </mat-form-field>
+      <mat-form-field fxFlex="20%">
+        <input matInput currencyMask [options]="{precision: 4}" formControlName="qUnid" placeholder="Qtd. Total Unidade Padrão">
+      </mat-form-field>
+      <mat-form-field fxFlex="20%">
+        <input matInput currencyMask [options]="{precision: 4}" formControlName="vUnid" placeholder="Valor por Unidade">
+      </mat-form-field>
+      <mat-form-field fxFlex="20%">
+        <input matInput currencyMask [options]="{precision: 2}" formControlName="vIPI" placeholder="Valor do IPI">
+      </mat-form-field>
+    </div>
+</div>
+

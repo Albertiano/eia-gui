@@ -38,7 +38,7 @@
         <ng-container matColumnDef="valor">
           <th mat-header-cell *matHeaderCellDef fxLayoutAlign="center center" fxFlex="100px">Valor</th>
           <td mat-cell fxLayoutAlign="end center" fxFlex="100px" *matCellDef="let row" [ngClass]="{'debito': 'D' == row.tpLancamento.valor, 'credito': 'C' == row.tpLancamento.valor}">
-            {{row.valor | number:'1.2-2'}} {{row.tpLancamento.valor}}
+            {{row.tpLancamento.valor == 'D' && '-' || ''}} {{row.valor | number:'1.2-2'}}
           </td>
         </ng-container>
         <ng-container matColumnDef="documento">

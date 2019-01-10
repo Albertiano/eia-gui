@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8090/api',
+  apiUrl: 'http://192.168.0.10:100/api',
 
   tokenWhitelistedDomains: [
     new RegExp('localhost:8090'),

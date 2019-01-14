@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://192.168.0.10:100/api',
+  apiUrl: 'https://eiasiscon.com.br:8443/api',
 
   tokenWhitelistedDomains: [
     new RegExp('localhost:8090'),

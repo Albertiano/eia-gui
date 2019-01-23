@@ -35,4 +35,18 @@ export class UserService {
   save (registro): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}/user`, registro);
   }
+
+  loadRoles (props): Observable<any[]> {
+    const httpParams = new HttpParams({
+      fromObject: {
+        page: props.pageIndex,
+        size: props.pageSize,
+        sort: props.sortBy + ',asc'
+      }
+    });
+    return this.http.get<any>(`${environment.apiUrl}/role`, { params: httpParams })
+      .pipe(
+        map(res => res.content)
+      );
+  }
 }

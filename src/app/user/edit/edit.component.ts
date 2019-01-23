@@ -16,6 +16,8 @@ export class EditComponent implements OnInit, AfterViewInit {
   registro: any;
   form: FormGroup;
 
+  roles: any;
+
   constructor(
     public snackBar: MatSnackBar,
     private fb: FormBuilder,
@@ -26,6 +28,16 @@ export class EditComponent implements OnInit, AfterViewInit {
     private userService: UserService,
   ) {
       this.registro = registro;
+
+      this.userService.loadRoles({
+        pageIndex: 0,
+        pageSize: 50,
+        sortBy: 'name'
+      }).subscribe(data => {
+        this.roles = data;
+      }, erro => {
+        this.errorHandler.handle(erro);
+      });
 
       if (!this.registro.roles) {
         this.userService.loadRegistros({

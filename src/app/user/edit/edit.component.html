@@ -29,6 +29,31 @@
         </mat-form-field>
     </div>
 
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+      fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+        <mat-form-field fxFlex="80%">
+          <mat-select (selectionChange)="changeRole($event)" placeholder="Novo Perfil">
+            <mat-option *ngFor="let v of roles" [value]="v">{{v.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-icon-button color="primary" fxFlex="5%" (click)="addRole()">
+          <mat-icon aria-label="adicionar">add</mat-icon>
+        </button>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+      fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0"
+      formArrayName="roles" *ngFor="let user of getControls(form, 'roles').controls; let i = index;">
+
+          <mat-form-field [formGroupName]="i" fxFlex="80%">
+            <input matInput readonly class="disabled" formControlName="name" placeholder="Perfil">
+          </mat-form-field>
+          <button mat-icon-button color="warn" fxFlex="5%" (click)="removeRole(i)">
+            <mat-icon aria-label="remover">close</mat-icon>
+          </button>
+
+    </div>
+
 </mat-dialog-content>
 
 <mat-dialog-actions align="center">

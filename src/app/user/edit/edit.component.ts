@@ -17,6 +17,7 @@ export class EditComponent implements OnInit, AfterViewInit {
   form: FormGroup;
 
   roles: any;
+  roleSelected: any;
 
   constructor(
     public snackBar: MatSnackBar,
@@ -90,6 +91,26 @@ export class EditComponent implements OnInit, AfterViewInit {
         privileges: this.fb.array(role.privileges)
       }));
     });
+  }
+
+  changeRole(event) {
+    this.roleSelected = event.value;
+  }
+
+  addRole() {
+    const control = <FormArray>this.form.controls.roles;
+    control.push(this.fb.group({
+      active: this.roleSelected.active,
+      createdAt: this.roleSelected.createdAt,
+      id: this.roleSelected.id,
+      name: this.roleSelected.name,
+      privileges: this.fb.array(this.roleSelected.privileges)
+    }));
+  }
+
+  removeRole(index) {
+    const control = <FormArray>this.form.controls.roles;
+    control.removeAt(index);
   }
 
   getControls(frmGrp: FormGroup, key: string) {

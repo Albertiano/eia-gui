@@ -5,7 +5,7 @@ import { tap, debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
-import { saveAs } from 'file-saver/FileSaver';
+import { saveAs } from 'file-saver';
 
 import { ComponentPageTitle } from '../../shared/page-title';
 import { TableDataSource } from '../../shared/table-data-source';

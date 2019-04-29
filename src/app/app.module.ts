@@ -13,6 +13,7 @@ import { environment } from '../environments/environment';
 import { EmpresaService } from './empresa/empresa.service';
 import { PaisService } from './shared/pais.service';
 import { MunicipioService } from './shared/municipio.service';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -35,7 +36,8 @@ export function tokenGetter() {
     }),
     CoreModule,
     AuthModule,
-    SharedModule
+    SharedModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt' },

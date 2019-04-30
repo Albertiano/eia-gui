@@ -8,7 +8,7 @@
       <img mat-card-image class="img" src="assets/images/Login Manager.png" alt="Login"/>
       <mat-card-content>
         <mat-form-field class="full-width">
-          <mat-select placeholder="Empresa" [(ngModel)]="empresa" name="empresa">
+          <mat-select placeholder="Empresa" [(ngModel)]="empresa" name="empresa" style="text-align: left;">
             <mat-option *ngFor="let empresa of empresas" [value]="empresa.id">
               {{empresa.nome}}
             </mat-option>

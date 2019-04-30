@@ -7,14 +7,14 @@
 
     <div [formGroup]="searchForm" class="search-bar" [@toggleSearch]="searchBarState">
       <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
-        fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
-        <mat-form-field fxFlex="20%">
+        fxLayout.xs="row" fxLayoutAlign.xs="center center" fxLayoutGap.xs="3px">
+        <mat-form-field fxFlex="20%" fxFlex.xs="25%">
           <input matInput eiaDateTime formControlName="ini" placeholder="Data Inicial">
         </mat-form-field>
-        <mat-form-field fxFlex="20%">
+        <mat-form-field fxFlex="20%" fxFlex.xs="25%">
           <input matInput eiaDateTime formControlName="fim" placeholder="Data Final">
         </mat-form-field>
-        <mat-form-field fxFlex="30%">
+        <mat-form-field fxFlex="30%" fxFlex.xs="50%">
           <input matInput formControlName="searchControl" placeholder="O que você está procurando?">
           <mat-icon matSuffix style="cursor: pointer;" (click)="find()">search</mat-icon>
         </mat-form-field>

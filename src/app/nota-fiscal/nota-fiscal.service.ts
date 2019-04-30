@@ -47,6 +47,22 @@ export class NotaFiscalService {
       );
   }
 
+  exportar2 (nfs: any): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.set('Accept', 'application/zip');
+
+    let ids = [];
+
+    nfs.forEach(element => {
+      ids.push(element.id)
+    });
+
+    return this.http.post<any>(`${environment.apiUrl}/nota-fiscal/exportar`, ids, {
+      headers: headers,
+      responseType: 'blob'
+    });
+  }
+
   exportar (registro): Observable<any> {
     const httpParams = new HttpParams({
       fromObject: {

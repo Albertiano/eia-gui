@@ -25,7 +25,8 @@ import {
   MatTabsModule,
   MatDatepickerModule,
   MatChipsModule,
-  MatMenuModule
+  MatMenuModule,
+  MatCheckboxModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
@@ -77,7 +78,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     MatDatepickerModule,
     MatMomentDateModule,
     MatChipsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatCheckboxModule
   ],
   exports: [
     LayoutModule,
@@ -105,7 +107,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     MatDatepickerModule,
     MatMomentDateModule,
     MatChipsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatCheckboxModule
   ],
   providers: [
     Title,

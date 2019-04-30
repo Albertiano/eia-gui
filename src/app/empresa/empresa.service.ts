@@ -18,7 +18,7 @@ export class EmpresaService {
     private router: Router,
     private http: AuthHttp) { }
 
-  setEmpresaAtiva (empresa) {
+  setEmpresaAtiva (empresa: any) {
     this.empresaAtiva = empresa;
   }
 

@@ -19,6 +19,7 @@ import { ContaSelectComponent } from '../conta/select/select.component';
 import { CentroCustosSelectComponent } from '../centro-custos/select/select.component';
 import { PlanoContasSelectComponent } from '../plano-contas/select/select.component';
 import { IpiComponent } from '../tributacao/ipi/ipi.component';
+import { SpeedDialFabComponent } from './speed-dial-fab/speed-dial-fab.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { IpiComponent } from '../tributacao/ipi/ipi.component';
     MomentPipe,
     NumeroDirective,
     IcmsComponent,
-    IpiComponent
+    IpiComponent,
+    SpeedDialFabComponent
   ],
   declarations: [
     ConfirmDialogComponent,
@@ -54,7 +56,8 @@ import { IpiComponent } from '../tributacao/ipi/ipi.component';
     CepDirective,
     FoneDirective,
     MomentPipe,
-    NumeroDirective
+    NumeroDirective,
+    SpeedDialFabComponent
   ],
   entryComponents: [
     ConfirmDialogComponent,
@@ -66,7 +69,8 @@ import { IpiComponent } from '../tributacao/ipi/ipi.component';
     CentroCustosSelectComponent,
     PlanoContasSelectComponent,
     IcmsComponent,
-    IpiComponent
+    IpiComponent,
+    SpeedDialFabComponent
   ]
 })
 export class SharedModule { }

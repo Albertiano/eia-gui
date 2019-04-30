@@ -15,7 +15,7 @@ export class ComponentPageTitle {
     if (title !== '') {
       title = `${title} | `;
     }
-    this.bodyTitle.setTitle(`${title}EIA`);
+    this.bodyTitle.setTitle(`${title}EIASisCon`);
   }
 
   constructor(private bodyTitle: Title) { }

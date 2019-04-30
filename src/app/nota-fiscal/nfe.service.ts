@@ -43,6 +43,22 @@ export class NfeService {
     });
   }
 
+  danfes (nfs: any): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.set('Accept', 'application/pdf');
+
+    let ids = [];
+
+    nfs.forEach(element => {
+      ids.push(element.id)
+    });
+
+    return this.http.post<any>(`${environment.apiUrl}/nfe/danfe`, ids, {
+      headers: headers,
+      responseType: 'blob'
+    });
+  }
+
   enviar (nf): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}/nfe/enviar`, nf);
   }

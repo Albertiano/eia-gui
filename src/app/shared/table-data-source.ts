@@ -10,6 +10,7 @@ export class TableDataSource implements DataSource<any> {
 
   public loading$ = this.loadingSubject.asObservable();
   public count$ = this.countSubject.asObservable();
+  public data$ = this.registersSubject.asObservable();
 
   constructor(private service: any) {}
 

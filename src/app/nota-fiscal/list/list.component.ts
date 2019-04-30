@@ -6,6 +6,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { saveAs } from 'file-saver';
+import { SelectionModel } from '@angular/cdk/collections';
 
 import { ComponentPageTitle } from '../../shared/page-title';
 import { TableDataSource } from '../../shared/table-data-source';
@@ -15,6 +16,7 @@ import { ErrorHandlerService } from '../../core/error-handler.service';
 import { NotaFiscalService } from '../nota-fiscal.service';
 import { NfeService } from '../nfe.service';
 import { CancelarComponent } from '../cancelar/cancelar.component';
+import { async } from 'rxjs/internal/scheduler/async';
 
 @Component({
   selector: 'eia-list',
@@ -44,15 +46,44 @@ export class ListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['numero', 'dhEmi', 'natOp', 'dest', 'total', 'sitNfe', 'actions'];
+  displayedColumns: string[] = ['select', 'numero', 'dhEmi', 'natOp', 'dest', 'total', 'sitNfe', 'actions'];
 
   dataSource: TableDataSource;
+
+  selection = new SelectionModel<any>(true, []);
+
+  isAllSelected: Boolean;
 
   props = {
     pageIndex: 0,
     pageSize: 8,
     sortBy: 'numero, desc',
     filter: ''
+  };
+
+  FabOptions = {
+    buttons: [
+      {
+        icon: 'search',
+        action: 'toggleSearch'
+      },
+      {
+        icon: 'add',
+        action: 'novo'
+      },
+      {
+        icon: 'edit',
+        action: 'edit'
+      },
+      {
+        icon: 'print',
+        action: 'danfe'
+      },
+      {
+        icon: 'archive',
+        action: 'exportar'
+      }
+    ]
   };
 
   constructor(
@@ -83,6 +114,7 @@ export class ListComponent implements OnInit, AfterViewInit {
       }
       )
     ).subscribe(() => {
+      this.selection.clear();
       this.loadPage();
     });
 
@@ -100,6 +132,72 @@ export class ListComponent implements OnInit, AfterViewInit {
       .subscribe();
   }
 
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.dataSource.data$.subscribe(res => {
+      const numSelected = this.selection.selected.length;
+      const numRows = this.paginator.pageSize;
+      if (numSelected >= numRows) {
+        this.selection.clear();
+        this.isAllSelected = false;
+      } else {
+        res.forEach(row => {
+          this.selection.select(row);
+        });
+        this.isAllSelected = true;
+      }
+    });
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: any): string {
+    if (!row) {
+      return `${this.isAllSelected ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  }
+
+  isSelected() {
+    if (this.selection.selected.length > 0) {
+      return true;
+    } else {
+      this.snackBar.open('Não há registros selecionados', null, { duration: 8000, });
+      return false;
+    }
+  }
+
+  onSpeedDialFabClicked(btn) {
+      switch (btn.action) {
+        case 'toggleSearch':
+          if (this.isSelected()){
+            this.toggleSearch();
+          }
+          break;
+        case 'novo':
+          this.novo();
+          break;
+        case 'edit':
+          if (this.isSelected()){
+            this.selection.selected.forEach(row => {
+              this.edit(row);
+            });
+          }
+          break;
+        case 'danfe':
+          if (this.isSelected()){
+            this.danfes();
+          }
+          break;
+        case 'exportar':
+          if (this.isSelected()){
+            this.danfes();
+            this.exportar2();
+          }
+          break;
+        default:
+      }
+  }
+
   toggleSearch() {
     this.searchBarState = this.searchBarState === 'hidden' ? 'visible' : 'hidden';
   }
@@ -108,6 +206,7 @@ export class ListComponent implements OnInit, AfterViewInit {
     this.props.pageIndex = this.paginator.pageIndex;
     this.props.pageSize = this.paginator.pageSize;
     this.dataSource.loadRegisters(this.props);
+    this.selection.clear();
   }
 
   novo() {
@@ -123,6 +222,7 @@ export class ListComponent implements OnInit, AfterViewInit {
     this.paginator.pageIndex = 0;
     this.props.pageIndex = 0;
     this.dataSource.loadRegisters(this.props);
+    this.selection.clear();
   }
 
   edit(registro) {
@@ -144,6 +244,7 @@ export class ListComponent implements OnInit, AfterViewInit {
               this.paginator.pageIndex = 0;
               this.props.pageIndex = 0;
               this.dataSource.loadRegisters(this.props);
+              this.selection.clear();
             }, erro => {
               this.errorHandler.handle(erro);
             });
@@ -168,6 +269,7 @@ export class ListComponent implements OnInit, AfterViewInit {
             this.paginator.pageIndex = 0;
             this.props.pageIndex = 0;
             this.dataSource.loadRegisters(this.props);
+            this.selection.clear();
           }, erro => {
             this.errorHandler.handle(erro);
           });
@@ -194,6 +296,31 @@ export class ListComponent implements OnInit, AfterViewInit {
       this.snackBar.open('Abrindo ... ' + registro.numero, null, { duration: 5000, });
       const fileURL = URL.createObjectURL(res);
       window.open(fileURL, 'Nota Fiscal', 'toolbar=0,location=0,status=0,menubar=0,scrollbars=1,resizable=0,width=800,height=600,top=30');
+    }, erro => {
+      console.log(erro);
+      this.dataSource.loadRegisters(this.props);
+      this.errorHandler.handle(erro);
+    });
+  }
+
+  danfes() {
+    this.snackBar.open('Baixando a Notas Fiscais ...', null, { duration: 20000, });
+    this.nfeService.danfes(this.selection.selected).subscribe((res) => {
+      this.snackBar.open('Abrindo ... ', null, { duration: 5000, });
+      const fileURL = URL.createObjectURL(res);
+      window.open(fileURL, 'Nota Fiscal', 'toolbar=0,location=0,status=0,menubar=0,scrollbars=1,resizable=0,width=800,height=600,top=30');
+    }, erro => {
+      console.log(erro);
+      this.dataSource.loadRegisters(this.props);
+      this.errorHandler.handle(erro);
+    });
+  }
+
+  exportar2() {
+    this.snackBar.open('Exportando a Notas Fiscais ...', null, { duration: 20000, });
+    this.service.exportar2(this.selection.selected).subscribe((res) => {
+      this.snackBar.open('Concluída a requisição de download ...', null, { duration: 5000, });
+      saveAs(res, `notas.zip`);
     }, erro => {
       console.log(erro);
       this.dataSource.loadRegisters(this.props);

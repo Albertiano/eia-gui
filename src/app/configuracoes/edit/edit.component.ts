@@ -37,19 +37,30 @@ export class EditComponent implements OnInit {
       this.service.loadRegistro().subscribe((config) => {
         if (config) {
           this.registro = config;
+          this.createForm();
         }
       });
   }
 
   ngOnInit() {
     this._componentPageTitle.title = 'Configurações';
-    this.createForm();
   }
 
   createForm() {
     this.form = this.fb.group({
-      certificadoFile: [this.registro.certificadoFile, Validators.required],
-      certificadoSenha: [this.registro.certificadoSenha, Validators.required],
+      active: [this.registro.active],
+      certificadoFile: [this.registro.certificadoFile],
+      certificadoSenha: [this.registro.certificadoSenha],
+      createdAt: [this.registro.createdAt],
+      csc: [this.registro.csc],
+      id: [this.registro.id],
+      idCsc: [this.registro.idCsc],
+      logoFile: [this.registro.logoFile],
+      numeroNFCe: [this.registro.numeroNFCe],
+      numeroNFe: [this.registro.numeroNFe, Validators.required],
+      serieNFCe: [this.registro.serieNFCe],
+      serieNFe: [this.registro.serieNFe, Validators.required],
+      updatedAt: [this.registro.updatedAt],
       empresa: [this.empresaService.getEmpresaAtiva()]
     });
   }
@@ -70,7 +81,7 @@ export class EditComponent implements OnInit {
 
   onSubmit() {
     const formModel = this.prepareSave();
-    // this.loading = true;
+    this.loading = true;
     this.uploadService.upload(formModel).subscribe(res => {
       this.loading = false;
       this.save();

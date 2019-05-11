@@ -308,7 +308,7 @@ export class EditComponent implements OnInit, AfterViewInit {
         updatedAt: [registro.municipio.updatedAt],
         xMun: [registro.municipio.xMun]
       }),
-      nome: [registro.nome, Validators.required],
+      nome: [registro.nome],
       numDoc: [registro.numDoc],
       numero: [registro.numero],
       obs: [registro.obs],

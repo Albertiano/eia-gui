@@ -1,0 +1,54 @@
+<h3 mat-dialog-title>Edição de Registro</h3>
+
+<mat-dialog-content [formGroup]="form">
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+      fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+      <mat-form-field fxFlex="80%">
+        <input matInput formControlName="descricao" placeholder="Descrição">
+      </mat-form-field>
+          <mat-checkbox formControlName="isExterno" fxFlex="20%">Externo</mat-checkbox>
+    </div>
+
+  <mat-card>
+      <mat-card-header>
+        <mat-card-title>Configurações NF-e</mat-card-title>
+        <mat-card-subtitle>Numero e Série</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+          <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+              fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+              <mat-form-field fxFlex="40%">
+                <input matInput formControlName="serieNFe" placeholder="Serie a ser utilizada">
+              </mat-form-field>
+              <mat-form-field fxFlex="60%">
+                  <input matInput formControlName="numeroNFe" placeholder="Ultima NF-e">
+              </mat-form-field>
+          </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-header>
+          <mat-card-title>Configurações NFC-e</mat-card-title>
+          <mat-card-subtitle>Numero e Série</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+                fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+                <mat-form-field fxFlex="40%">
+                  <input matInput formControlName="serieNFCe" placeholder="Serie a ser utilizada">
+                </mat-form-field>
+                <mat-form-field fxFlex="60%">
+                    <input matInput formControlName="numeroNFCe" placeholder="Ultima NFC-e">
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+      </mat-card>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button class="mat-raised-button mat-primary" (click)="save()" [disabled]="!form.valid">Salvar</button>
+  <button class="mat-raised-button" (click)="close()">Cancelar</button>
+</mat-dialog-actions>

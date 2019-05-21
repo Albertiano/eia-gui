@@ -35,10 +35,14 @@ export class EditComponent implements OnInit, AfterViewInit {
     this.form = this.fb.group({
       active: [registro.active],
       createdAt: [registro.createdAt],
-      desc: [registro.desc],
       empresa: [this.empresaService.getEmpresaAtiva()],
       id: [registro.id],
-      sigla: [registro.sigla]
+      descricao: [registro.descricao],
+      isExterno: [registro.isExterno],
+      serieNFe: [registro.serieNFe],
+      numeroNFe: [registro.numeroNFe],
+      serieNFCe: [registro.serieNFCe],
+      numeroNFCe: [registro.numeroNFCe]
     });
   }
 

@@ -10,7 +10,7 @@ import { TableDataSource } from '../../shared/table-data-source';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 import { EditComponent } from '../edit/edit.component';
 import { ErrorHandlerService } from '../../core/error-handler.service';
-import { UnidadeService } from '../unidade.service';
+import { ConfigPdvService } from '../config-pdv.service';
 
 @Component({
   selector: 'eia-list',
@@ -40,14 +40,14 @@ export class ListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['sigla', 'desc', 'actions'];
+  displayedColumns: string[] = ['descricao', 'actions'];
 
   dataSource: TableDataSource;
 
   props = {
     pageIndex: 0,
     pageSize: 8,
-    sortBy: 'sigla',
+    sortBy: 'descricao',
     filter: ''
   };
 
@@ -56,7 +56,7 @@ export class ListComponent implements OnInit, AfterViewInit {
     public _componentPageTitle: ComponentPageTitle,
     private dialog: MatDialog,
     private errorHandler: ErrorHandlerService,
-    private service: UnidadeService) {}
+    private service: ConfigPdvService) {}
 
   ngOnInit() {
     this.searchControl = this.fb.control('');
@@ -83,7 +83,7 @@ export class ListComponent implements OnInit, AfterViewInit {
     this.dataSource = new TableDataSource(this.service);
     this.dataSource.loadRegisters(this.props);
 
-    this._componentPageTitle.title = 'Unidades';
+    this._componentPageTitle.title = 'Configuração de PDV';
   }
 
   ngAfterViewInit() {

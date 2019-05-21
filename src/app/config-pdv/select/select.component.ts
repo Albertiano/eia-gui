@@ -7,7 +7,7 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 
 import { ComponentPageTitle } from '../../shared/page-title';
 import { TableDataSource } from '../../shared/table-data-source';
-import { UnidadeService } from '../unidade.service';
+import { ConfigPdvService } from '../config-pdv.service';
 
 @Component({
   selector: 'eia-select',
@@ -50,7 +50,7 @@ export class UnidadeSelectComponent  implements OnInit, AfterViewInit {
 
   constructor(
     private fb: FormBuilder,
-    private service: UnidadeService,
+    private service: ConfigPdvService,
     private dialogRef: MatDialogRef<UnidadeSelectComponent>) {}
 
   ngOnInit() {

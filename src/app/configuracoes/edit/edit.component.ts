@@ -37,13 +37,14 @@ export class EditComponent implements OnInit {
       this.service.loadRegistro().subscribe((config) => {
         if (config) {
           this.registro = config;
-          this.createForm();
+          this.form.patchValue(this.registro);
         }
       });
   }
 
   ngOnInit() {
     this._componentPageTitle.title = 'Configurações';
+    this.createForm();
   }
 
   createForm() {
@@ -56,10 +57,6 @@ export class EditComponent implements OnInit {
       id: [this.registro.id],
       idCsc: [this.registro.idCsc],
       logoFile: [this.registro.logoFile],
-      numeroNFCe: [this.registro.numeroNFCe],
-      numeroNFe: [this.registro.numeroNFe, Validators.required],
-      serieNFCe: [this.registro.serieNFCe],
-      serieNFe: [this.registro.serieNFe, Validators.required],
       updatedAt: [this.registro.updatedAt],
       empresa: [this.empresaService.getEmpresaAtiva()]
     });

@@ -28,7 +28,8 @@ const routes: Routes = [
       { path: 'centro-custos', loadChildren: './centro-custos/centro-custos.module#CentroCustosModule'},
       { path: 'plano-contas', loadChildren: './plano-contas/plano-contas.module#PlanoContasModule'},
       { path: 'lancamento', loadChildren: './lancamento/lancamento.module#LancamentoModule'},
-      { path: 'configuracoes', loadChildren: './configuracoes/configuracoes.module#ConfiguracoesModule'}
+      { path: 'configuracoes', loadChildren: './configuracoes/configuracoes.module#ConfiguracoesModule'},
+      { path: 'config-pdv', loadChildren: './config-pdv/config-pdv.module#ConfigPdvModule'}
     ]
   },
 

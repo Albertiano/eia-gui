@@ -1,3 +1,4 @@
+import { ConfigPdvService } from './../../config-pdv/config-pdv.service';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator, MatSort, MatDialog, MatDialogConfig } from '@angular/material';
 import { merge } from 'rxjs';
@@ -17,6 +18,7 @@ import { NotaFiscalService } from '../nota-fiscal.service';
 import { NfeService } from '../nfe.service';
 import { CancelarComponent } from '../cancelar/cancelar.component';
 import { async } from 'rxjs/internal/scheduler/async';
+import { ConfigPdvSelectComponent } from 'src/app/config-pdv/select/select.component';
 
 @Component({
   selector: 'eia-list',
@@ -93,7 +95,8 @@ export class ListComponent implements OnInit, AfterViewInit {
     public snackBar: MatSnackBar,
     private errorHandler: ErrorHandlerService,
     private service: NotaFiscalService,
-    private nfeService: NfeService) {}
+    private nfeService: NfeService,
+    private configPdv: ConfigPdvService) {}
 
   ngOnInit() {
     this.searchControl = this.fb.control('');
@@ -235,25 +238,40 @@ export class ListComponent implements OnInit, AfterViewInit {
     dialogConfig.maxHeight = '99vw';
     dialogConfig.data = { registro };
     dialogConfig.panelClass = 'eia-dialog';
-    const dialogRef = this.dialog.open(EditComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(
-      (register) => {
-        if (register) {
-          if (register.sitNfe === 'Digitação' || register.sitNfe === 'Rejeitada') {
-            this.service.save(register).subscribe(() => {
-              this.paginator.pageIndex = 0;
-              this.props.pageIndex = 0;
-              this.dataSource.loadRegisters(this.props);
-              this.selection.clear();
-            }, erro => {
-              this.errorHandler.handle(erro);
-            });
-          } else {
-            this.snackBar.open('Não é possível alterar uma Nota Fiscal [' + registro.sitNfe + ']', null, { duration: 13000, });
+
+    if (this.configPdv.getPDV()) {
+      const dialogRef = this.dialog.open(EditComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(
+        (register) => {
+          if (register) {
+            if (register.sitNfe === 'Digitação' || register.sitNfe === 'Rejeitada') {
+              this.service.save(register).subscribe(() => {
+                this.paginator.pageIndex = 0;
+                this.props.pageIndex = 0;
+                this.dataSource.loadRegisters(this.props);
+                this.selection.clear();
+              }, erro => {
+                this.errorHandler.handle(erro);
+              });
+            } else {
+              this.snackBar.open('Não é possível alterar uma Nota Fiscal [' + registro.sitNfe + ']', null, { duration: 13000, });
+            }
           }
         }
-      }
-    );
+      );
+    } else {
+      const dialogRef = this.dialog.open(ConfigPdvSelectComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(
+        (register) => {
+            if (register) {
+              this.configPdv.setPDV(register);
+              this.edit(registro);
+            } else {
+              this.snackBar.open('Selecione um PDV para continuar!', null, { duration: 13000, });
+            }
+        }
+      );
+    }
   }
 
   remove(registro) {

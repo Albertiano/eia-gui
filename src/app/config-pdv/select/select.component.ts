@@ -5,7 +5,6 @@ import { tap, debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 
-import { ComponentPageTitle } from '../../shared/page-title';
 import { TableDataSource } from '../../shared/table-data-source';
 import { ConfigPdvService } from '../config-pdv.service';
 
@@ -28,7 +27,7 @@ import { ConfigPdvService } from '../config-pdv.service';
     ])
   ]
 })
-export class UnidadeSelectComponent  implements OnInit, AfterViewInit {
+export class ConfigPdvSelectComponent  implements OnInit, AfterViewInit {
 
   searchBarState = 'hidden';
   searchForm: FormGroup;
@@ -37,21 +36,21 @@ export class UnidadeSelectComponent  implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['sigla', 'desc', 'actions'];
+  displayedColumns: string[] = ['descricao', 'actions'];
 
   dataSource: TableDataSource;
 
   props = {
     pageIndex: 0,
     pageSize: 8,
-    sortBy: 'sigla',
+    sortBy: 'descricao',
     filter: ''
   };
 
   constructor(
     private fb: FormBuilder,
     private service: ConfigPdvService,
-    private dialogRef: MatDialogRef<UnidadeSelectComponent>) {}
+    private dialogRef: MatDialogRef<ConfigPdvSelectComponent>) {}
 
   ngOnInit() {
     this.searchControl = this.fb.control('');

@@ -1,3 +1,4 @@
+import { ConfigPdvSelectComponent } from 'src/app/config-pdv/select/select.component';
 import { CepDirective } from './directives/cep.directive';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -38,7 +39,8 @@ import { SpeedDialFabComponent } from './speed-dial-fab/speed-dial-fab.component
     NumeroDirective,
     IcmsComponent,
     IpiComponent,
-    SpeedDialFabComponent
+    SpeedDialFabComponent,
+    ConfigPdvSelectComponent
   ],
   declarations: [
     ConfirmDialogComponent,
@@ -57,7 +59,8 @@ import { SpeedDialFabComponent } from './speed-dial-fab/speed-dial-fab.component
     FoneDirective,
     MomentPipe,
     NumeroDirective,
-    SpeedDialFabComponent
+    SpeedDialFabComponent,
+    ConfigPdvSelectComponent
   ],
   entryComponents: [
     ConfirmDialogComponent,
@@ -70,7 +73,8 @@ import { SpeedDialFabComponent } from './speed-dial-fab/speed-dial-fab.component
     PlanoContasSelectComponent,
     IcmsComponent,
     IpiComponent,
-    SpeedDialFabComponent
+    SpeedDialFabComponent,
+    ConfigPdvSelectComponent
   ]
 })
 export class SharedModule { }

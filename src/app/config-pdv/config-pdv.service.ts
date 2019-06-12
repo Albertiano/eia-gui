@@ -12,9 +12,19 @@ import { EmpresaService } from '../empresa/empresa.service';
 })
 export class ConfigPdvService {
 
+  private pdvAtivo: any;
+
   constructor(
     private http: AuthHttp,
     private empresaService: EmpresaService) {}
+
+  setPDV (pdv: any) {
+    this.pdvAtivo = pdv;
+  }
+
+  getPDV () {
+    return this.pdvAtivo;
+  }
 
   loadRegistros (props): Observable<any[]> {
     const httpParams = new HttpParams({

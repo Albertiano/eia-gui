@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { AuthHttp } from '../auth/auth-http';
 import { EmpresaService } from '../empresa/empresa.service';
+import { ConfigPdvService } from './../config-pdv/config-pdv.service';
 
 @Injectable({
   providedIn: 'root'

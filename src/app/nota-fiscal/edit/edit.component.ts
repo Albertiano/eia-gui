@@ -14,6 +14,7 @@ import { NumeroConversor } from './../../shared/util/numero';
 import { EditItemComponent } from '../edit-item/edit-item.component';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 import { MunicipioService } from '../../shared/municipio.service';
+import { ConfigPdvService } from 'src/app/config-pdv/config-pdv.service';
 
 @Component({
   selector: 'eia-edit',
@@ -99,6 +100,7 @@ export class EditComponent implements OnInit, AfterViewInit {
     private empresaService: EmpresaService,
     private service: NotaFiscalService,
     private municipioService: MunicipioService,
+    private configPdvService: ConfigPdvService,
     private dialog: MatDialog,
     private dialogRef: MatDialogRef<EditComponent>,
     @Inject(MAT_DIALOG_DATA) {registro}
@@ -232,6 +234,7 @@ export class EditComponent implements OnInit, AfterViewInit {
       xJust: [registro.xJust],
       nfref: this.fb.array(registro.nfref),
       emitente: [this.empresaService.getEmpresaAtiva()],
+      pdv: [this.configPdvService.getPDV()],
       dest: this.buildContato(registro.dest),
       itens: this.fb.array(registro.itens),
       total: this.fb.group({

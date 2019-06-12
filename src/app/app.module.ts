@@ -3,6 +3,7 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtModule } from '@auth0/angular-jwt';
 
+import { ConfigPdvService } from './config-pdv/config-pdv.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
@@ -42,7 +43,8 @@ export function tokenGetter() {
     ComponentPageTitle,
     PaisService,
     MunicipioService,
-    EmpresaService
+    EmpresaService,
+    ConfigPdvService
   ],
   bootstrap: [AppComponent]
 })

@@ -38,8 +38,8 @@ export class ListComponent implements OnInit, AfterViewInit {
   searchBarState = 'hidden';
   searchForm: FormGroup;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   displayedColumns: string[] = ['competencia', 'contato', 'descricao', 'documento', 'valor', 'conta', 'actions'];
 

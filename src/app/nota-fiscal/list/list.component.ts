@@ -45,8 +45,8 @@ export class ListComponent implements OnInit, AfterViewInit {
   searchForm: FormGroup;
   searchControl: FormControl;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   displayedColumns: string[] = ['select', 'numero', 'dhEmi', 'natOp', 'dest', 'total', 'sitNfe', 'actions'];
 

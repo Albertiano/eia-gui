@@ -53,27 +53,27 @@ export class EditComponent implements OnInit, AfterViewInit {
   vOutro = 0.00;
   vnf = 0.00;
 
-  @ViewChild('itemCodigo')
+  @ViewChild('itemCodigo', {static: true})
   itemCodigo: ElementRef;
-  @ViewChild('itemDesc')
+  @ViewChild('itemDesc', {static: true})
   itemDesc: ElementRef;
-  @ViewChild('itemUn')
+  @ViewChild('itemUn', {static: true})
   itemUn: ElementRef;
-  @ViewChild('itemQuant')
+  @ViewChild('itemQuant', {static: true})
   itemQuant: ElementRef;
-  @ViewChild('itemPreco')
+  @ViewChild('itemPreco', {static: true})
   itemPreco: ElementRef;
-  @ViewChild('itemSubt')
+  @ViewChild('itemSubt', {static: true})
   itemSubt: ElementRef;
 
-  @ViewChild('chaveNFRef')
+  @ViewChild('chaveNFRef', {static: true})
   chaveNFRef: ElementRef;
 
-  @ViewChild('indPag')
+  @ViewChild('indPag', {static: true})
   indPag: ElementRef;
-  @ViewChild('tPag')
+  @ViewChild('tPag', {static: true})
   tPag: ElementRef;
-  @ViewChild('vPag')
+  @ViewChild('vPag', {static: true})
   vPag: ElementRef;
 
   formasPag: any = [];

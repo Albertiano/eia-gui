@@ -22,7 +22,7 @@ export class EditComponent implements OnInit {
 
   registro: any;
 
-  @ViewChild('fileInput') fileInput: ElementRef;
+  @ViewChild('fileInput', {static: true}) fileInput: ElementRef;
 
   constructor(
     private fb: FormBuilder,

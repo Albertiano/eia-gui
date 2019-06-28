@@ -33,8 +33,8 @@ export class CentroCustosSelectComponent  implements OnInit, AfterViewInit {
   searchForm: FormGroup;
   searchControl: FormControl;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   displayedColumns: string[] = ['descricao', 'actions'];
 

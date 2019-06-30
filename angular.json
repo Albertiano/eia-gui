@@ -99,6 +99,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "eia-ui"
+    }
+  },
+  "defaultProject": "eia-ui",
+  "cli": {
+    "defaultCollection": "@nativescript/schematics"
+  }
 }

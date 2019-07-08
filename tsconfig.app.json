@@ -9,9 +9,6 @@
   ],
   "exclude": [
     "src/test.ts",
-    "src/**/*.spec.ts",
-    "**/*.tns.ts",
-    "**/*.android.ts",
-    "**/*.ios.ts"
+    "src/**/*.spec.ts"
   ]
 }

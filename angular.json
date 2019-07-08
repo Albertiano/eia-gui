@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "eia-ui": {
+    "eia-gui": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -36,7 +36,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/eia-ui",
+            "outputPath": "dist/eia-gui",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -84,25 +84,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "eia-ui:build"
+            "browserTarget": "eia-gui:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "eia-ui:build:production"
+              "browserTarget": "eia-gui:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "eia-ui:build"
+            "browserTarget": "eia-gui:build"
           }
         }
       }
-    }
-  },
-  "defaultProject": "eia-ui",
-  "cli": {
-    "defaultCollection": "@nativescript/schematics"
-  }
+    }},
+  "defaultProject": "eia-gui"
 }

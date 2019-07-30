@@ -1,5 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder } from '../../../../node_modules/@angular/forms';
+import { DecimalPipe } from '@angular/common';
+
+import { NumeroConversor } from '../../shared/util/numero';
 import { TributacaoService } from '../tributacao.service';
 import { ErrorHandlerService } from '../../core/error-handler.service';
 
@@ -15,7 +18,10 @@ export class IcmsComponent implements OnInit {
   @Output()
   valuesChange: EventEmitter<any>;
 
-  icmsForm: FormGroup;
+  form: FormGroup;
+
+  numeroConversor: NumeroConversor;
+  decimalPipe: DecimalPipe;
 
   cstsICMS: any;
   origens: any;
@@ -27,6 +33,9 @@ export class IcmsComponent implements OnInit {
     private service: TributacaoService) {
 
       this.valuesChange = new EventEmitter();
+
+      this.numeroConversor = new NumeroConversor();
+      this.decimalPipe = new DecimalPipe('pt-BR');
 
       this.service.loadCstICMS().subscribe(data => {
         this.cstsICMS = data;
@@ -52,14 +61,14 @@ export class IcmsComponent implements OnInit {
         this.icms.modBCICMS = { descricao: '', valor: '3' };
       }
       this.buildForm();
-      this.icmsForm.valueChanges.subscribe(val => {
+      this.form.valueChanges.subscribe(val => {
         this.valuesChange.emit(val);
       });
     }
 
     buildForm() {
       const registro = this.icms;
-      this.icmsForm = this.fb.group({
+      this.form = this.fb.group({
         cstICMS: this.fb.group({
           descricao: [registro.cstICMS.descricao],
           valor: [registro.cstICMS.valor]
@@ -86,17 +95,23 @@ export class IcmsComponent implements OnInit {
 
     changeCst(event) {
       const registro = this.cstsICMS.find(element => element.valor === event.value);
-      this.icmsForm.get('cstICMS').patchValue(registro);
+      this.form.get('cstICMS').patchValue(registro);
     }
 
     changeOrigem(event) {
       const registro = this.origens.find(element => element.valor === event.value);
-      this.icmsForm.get('origem').patchValue(registro);
+      this.form.get('origem').patchValue(registro);
     }
 
     changeModICMSST(event) {
       const registro = this.modICMSST.find(element => element.valor === event.value);
-      this.icmsForm.get('modBCST').patchValue(registro);
+      this.form.get('modBCST').patchValue(registro);
+    }
+
+    updateValues() {
+      console.log(this.form.get('vBCST').value);
+      const vBCST = this.numeroConversor.parse(this.form.get('vBCST').value);
+      this.form.get('vBCST').setValue(this.decimalPipe.transform(vBCST, '1.2-2'));
     }
 
 }

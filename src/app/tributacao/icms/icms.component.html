@@ -1,4 +1,4 @@
-<div [formGroup]="icmsForm">
+<div [formGroup]="form">
   <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px" style="margin: 20px 20px -10px 20px"
     fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
     <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px"
@@ -44,13 +44,13 @@
             </mat-select>
           </mat-form-field>
           <mat-form-field fxFlex="13%">
-            <input matInput currencyMask [options]="{precision: 2}" formControlName="pRedBCST" placeholder="% Redução da BC ICMS ST">
+            <input matInput currencyMask [options]="{precision: 4}" formControlName="pRedBCST" placeholder="% Redução da BC ICMS ST">
           </mat-form-field>
           <mat-form-field fxFlex="13%">
-            <input matInput currencyMask [options]="{precision: 2}" formControlName="pMVAST" placeholder="% margem de valor adic. ICMS ST">
+            <input matInput currencyMask [options]="{precision: 4}" formControlName="pMVAST" placeholder="% margem de valor adic. ICMS ST">
           </mat-form-field>
           <mat-form-field fxFlex="13%">
-            <input matInput currencyMask [options]="{precision: 2}" formControlName="vBCST" placeholder="* BC ICMS ST">
+            <input matInput formControlName="vBCST" placeholder="BC ICMS ST"  eiaNumero minFractionDigits="2" (blur)="updateValues()">
           </mat-form-field>
           <mat-form-field fxFlex="13%">
             <input matInput currencyMask [options]="{precision: 2}" formControlName="pICMSST" placeholder="* Alíquota do ICMS ST">

@@ -1,8 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { DecimalPipe } from '@angular/common';
+
 import { NumeroConversor } from '../../shared/util/numero';
-import { DecimalPipe } from '../../../../node_modules/@angular/common';
 
 @Component({
   selector: 'eia-edit-item',

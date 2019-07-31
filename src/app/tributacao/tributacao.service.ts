@@ -64,6 +64,13 @@ export class TributacaoService {
       );
   }
 
+  modICMS (): Observable<any[]> {
+    return this.http.get<any>(`${environment.apiUrl}/tributacao/mod-icms`)
+      .pipe(
+        map(res => res)
+      );
+  }
+
   modICMSST (): Observable<any[]> {
     return this.http.get<any>(`${environment.apiUrl}/tributacao/mod-icms-st`)
       .pipe(

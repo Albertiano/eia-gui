@@ -12,9 +12,106 @@
         </mat-form-field>
     </div>
 
-    <mat-tab-group>
+    <mat-tab-group formGroupName="icms">
       <mat-tab label="ICMS">
-        <eia-icms [icms]="form.get('icms').value" (valuesChange)="updateIcms($event)"></eia-icms>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px" style="margin: 20px 20px -10px 20px"
+          fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+          <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px"
+            fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0"  fxFlex="100%">
+            <mat-form-field formGroupName="cstICMS" fxFlex="60%">
+              <mat-select formControlName="valor" (selectionChange)="changeCst($event)" placeholder="Situação Tributária">
+                <mat-option *ngFor="let v of cstsICMS" [value]="v.valor">{{v.descricao}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field formGroupName="origem" fxFlex="40%">
+              <mat-select formControlName="valor" (selectionChange)="changeOrigem($event)" placeholder="Origem">
+                <mat-option *ngFor="let v of origens" [value]="v.valor">{{v.descricao}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <mat-card *ngIf="icmsSimples">
+          <mat-card-header>
+              <mat-card-title>ICMS - Simples Nacional</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+              fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+              <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px"
+                fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0"  fxFlex="100%">
+                <mat-form-field fxFlex="20%">
+                  <input matInput formControlName="pCredSN" placeholder="% Cred. Simples Nacional"  eiaNumero minFractionDigits="0">
+                </mat-form-field>
+                <mat-form-field fxFlex="30%">
+                  <input matInput formControlName="vCredICMSSN" placeholder="Crédito que pode ser aproveitado"  eiaNumero minFractionDigits="0">
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card *ngIf="icmsNormal">
+          <mat-card-header>
+              <mat-card-title>ICMS - Normal</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+              fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+              <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px"
+                fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0"  fxFlex="100%">
+                <mat-form-field formGroupName="modBCICMS" fxFlex="40%">
+                  <mat-select formControlName="valor" (selectionChange)="changeModICMS($event)" placeholder="* Modalid. de determ. da BC ICMS">
+                    <mat-option *ngFor="let v of modICMS" [value]="v.valor">{{v.descricao}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field fxFlex="15%">
+                  <input matInput formControlName="pRedBCICMS" placeholder="% Redução da BC ICMS" eiaNumero minFractionDigits="0">
+                </mat-form-field>
+                <mat-form-field fxFlex="15%">
+                  <input matInput formControlName="vBCICMS" placeholder="BC ICMS" eiaNumero minFractionDigits="2">
+                </mat-form-field>
+                <mat-form-field fxFlex="15%">
+                  <input matInput formControlName="pICMS" placeholder="Alíquota do ICMS" eiaNumero minFractionDigits="0">
+                </mat-form-field>
+                <mat-form-field fxFlex="15%">
+                  <input matInput formControlName="vICMS" placeholder="ICMS" eiaNumero minFractionDigits="2">
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card *ngIf="icmsST">
+          <mat-card-header>
+              <mat-card-title>ICMS ST</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+              fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
+              <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+                fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0"  fxFlex="100%">
+                <mat-form-field formGroupName="modBCST" fxFlex="35%">
+                  <mat-select formControlName="valor" (selectionChange)="changeModICMSST($event)" placeholder="* Modalid. de determ. da BC ICMS ST">
+                    <mat-option *ngFor="let v of modICMSST" [value]="v.valor">{{v.descricao}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field fxFlex="13%">
+                  <input matInput formControlName="pRedBCST" placeholder="% Redução da BC ICMS ST" eiaNumero minFractionDigits="0">
+                </mat-form-field>
+                <mat-form-field fxFlex="13%">
+                  <input matInput formControlName="pMVAST" placeholder="% margem de valor adic. ICMS ST" eiaNumero minFractionDigits="0">
+                </mat-form-field>
+                <mat-form-field fxFlex="13%">
+                  <input matInput formControlName="vBCST" placeholder="BC ICMS ST" eiaNumero minFractionDigits="2">
+                </mat-form-field>
+                <mat-form-field fxFlex="13%">
+                  <input matInput formControlName="pICMSST" placeholder="Alíquota do ICMS ST" eiaNumero minFractionDigits="0">
+                </mat-form-field>
+                <mat-form-field fxFlex="13%">
+                  <input matInput formControlName="vICMSST" placeholder="ICMS ST" eiaNumero minFractionDigits="2">
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
       </mat-tab>
       <mat-tab label="IPI">
         <eia-ipi [ipi]="form.get('ipi').value" (valuesChange)="updateIpi($event)"></eia-ipi>

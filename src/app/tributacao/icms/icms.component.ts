@@ -25,7 +25,12 @@ export class IcmsComponent implements OnInit {
 
   cstsICMS: any;
   origens: any;
+  modICMS: any;
   modICMSST: any;
+
+  icmsSimples: boolean = false;
+  icmsNormal: boolean = false;
+  icmsST: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -49,6 +54,12 @@ export class IcmsComponent implements OnInit {
         this.errorHandler.handle(erro);
       });
 
+      this.service.modICMS().subscribe(data => {
+        this.modICMS = data;
+      }, erro => {
+        this.errorHandler.handle(erro);
+      });
+
       this.service.modICMSST().subscribe(data => {
         this.modICMSST = data;
       }, erro => {
@@ -64,6 +75,7 @@ export class IcmsComponent implements OnInit {
       this.form.valueChanges.subscribe(val => {
         this.valuesChange.emit(val);
       });
+      this.displayIcms(this.form.get('cstICMS').value.valor);
     }
 
     buildForm() {
@@ -89,13 +101,64 @@ export class IcmsComponent implements OnInit {
         pMVAST: [registro.pMVAST],
         vBCST: [registro.vBCST],
         pICMSST: [registro.pICMSST],
-        vICMSST: [registro.vICMSST]
+        vICMSST: [registro.vICMSST],
+        pCredSN: [registro.pCredSN],
+        vCredICMSSN: [registro.vCredICMSSN],
+        pRedBCICMS: [registro.pRedBCICMS],
+        vBCICMS: [registro.vBCICMS],
+        pICMS: [registro.pICMS],
+        vICMS: [registro.vICMS]
       });
+    }
+
+    displayIcms(cst: any) {
+      switch (cst) {
+        case '101':
+          this.icmsSimples = true;
+          this.icmsNormal = false;
+          this.icmsST = false;
+          break;
+        case '102':
+        case '103':
+        case '300':
+        case '400':
+          this.icmsSimples = false;
+          this.icmsNormal = false;
+          this.icmsST = false;
+          break;
+        case '201':
+          this.icmsSimples = true;
+          this.icmsNormal = false;
+          this.icmsST = true;
+          break;
+        case '202':
+        case '203':
+          this.icmsSimples = false;
+          this.icmsNormal = false;
+          this.icmsST = true;
+          break;
+        case '500':
+          this.icmsSimples = false;
+          this.icmsNormal = false;
+          this.icmsST = false;
+          break;
+        case '900':
+          this.icmsSimples = true;
+          this.icmsNormal = true;
+          this.icmsST = true;
+          break;
+        default:
+          this.icmsSimples = false;
+          this.icmsNormal = false;
+          this.icmsST = false;
+          break;
+      }
     }
 
     changeCst(event) {
       const registro = this.cstsICMS.find(element => element.valor === event.value);
       this.form.get('cstICMS').patchValue(registro);
+      this.displayIcms(registro.valor);
     }
 
     changeOrigem(event) {
@@ -103,13 +166,18 @@ export class IcmsComponent implements OnInit {
       this.form.get('origem').patchValue(registro);
     }
 
+    changeModICMS(event) {
+      const registro = this.modICMS.find(element => element.valor === event.value);
+      this.form.get('modBCICMS').patchValue(registro);
+    }
+
     changeModICMSST(event) {
       const registro = this.modICMSST.find(element => element.valor === event.value);
       this.form.get('modBCST').patchValue(registro);
     }
 
+
     updateValues() {
-      console.log(this.form.get('vBCST').value);
       const vBCST = this.numeroConversor.parse(this.form.get('vBCST').value);
       this.form.get('vBCST').setValue(this.decimalPipe.transform(vBCST, '1.2-2'));
     }

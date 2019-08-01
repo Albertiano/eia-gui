@@ -33,19 +33,19 @@
     <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px"
       fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
       <mat-form-field fxFlex="20%">
-        <input matInput currencyMask [options]="{precision: 2}" formControlName="vBCIPI" placeholder="Valor da Base de Calculo">
+        <input matInput eiaNumero minFractionDigits="2" maxFractionDigits="2" formControlName="vBCIPI" placeholder="Valor da Base de Calculo">
       </mat-form-field>
       <mat-form-field fxFlex="20%">
-        <input matInput currencyMask [options]="{precision: 2}" formControlName="pIPI" placeholder="Alíquota (%)">
+        <input matInput eiaNumero minFractionDigits="2" maxFractionDigits="2" formControlName="pIPI" placeholder="Alíquota (%)">
       </mat-form-field>
       <mat-form-field fxFlex="20%">
-        <input matInput currencyMask [options]="{precision: 4}" formControlName="qUnid" placeholder="Qtd. Total Unidade Padrão">
+        <input matInput eiaNumero minFractionDigits="2" maxFractionDigits="4" formControlName="qUnid" placeholder="Qtd. Total Unidade Padrão">
       </mat-form-field>
       <mat-form-field fxFlex="20%">
-        <input matInput currencyMask [options]="{precision: 4}" formControlName="vUnid" placeholder="Valor por Unidade">
+        <input matInput eiaNumero minFractionDigits="2" maxFractionDigits="4" formControlName="vUnid" placeholder="Valor por Unidade">
       </mat-form-field>
       <mat-form-field fxFlex="20%">
-        <input matInput currencyMask [options]="{precision: 2}" formControlName="vIPI" placeholder="Valor do IPI">
+        <input matInput eiaNumero minFractionDigits="2" maxFractionDigits="2" formControlName="vIPI" placeholder="Valor do IPI">
       </mat-form-field>
     </div>
 </div>

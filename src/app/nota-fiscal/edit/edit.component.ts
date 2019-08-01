@@ -39,19 +39,21 @@ export class EditComponent implements OnInit, AfterViewInit {
   pLiq = 0.00;
   pBru = 0.00;
   qVol = 0.00;
-  vbc = 0.00;
-  vicms = 0.00;
-  vbcst = 0.00;
-  vst = 0.00;
+  vBC = 0.00;
+  vICMS = 0.00;
+  vBCST = 0.00;
+  vST = 0.00;
   vProd = 0.00;
   vFrete = 0.00;
   vSeg = 0.00;
   vDesc = 0.00;
-  vipi = 0.00;
-  vpis = 0.00;
-  vcofins = 0.00;
+  vIPI = 0.00;
+  vPIS = 0.00;
+  vCOFINS = 0.00;
   vOutro = 0.00;
-  vnf = 0.00;
+  vNF = 0.00;
+  vTotTrib = 0.00;
+  vII = 0.00;
 
   @ViewChild('itemCodigo', {static: true})
   itemCodigo: ElementRef;
@@ -243,16 +245,16 @@ export class EditComponent implements OnInit, AfterViewInit {
         vOutro: [registro.total.vOutro],
         vProd: [registro.total.vProd],
         vSeg: [registro.total.vSeg],
-        vTotTrib: [0.00],
-        vbc: [registro.total.vbc],
-        vbcst: [registro.total.vbcst],
-        vcofins: [registro.total.vcofins],
-        vicms: [registro.total.vicms],
-        vii: [0.00],
-        vipi: [registro.total.vipi],
-        vnf: [registro.total.vnf],
-        vpis: [registro.total.vpis],
-        vst: [registro.total.vst]
+        vTotTrib: [registro.total.vTotTrib],
+        vBC: [registro.total.vBC],
+        vBCST: [registro.total.vBCST],
+        vCOFINS: [registro.total.vCOFINS],
+        vICMS: [registro.total.vICMS],
+        vII: [registro.total.vII],
+        vIPI: [registro.total.vIPI],
+        vNF: [registro.total.vNF],
+        vPIS: [registro.total.vPIS],
+        vST: [registro.total.vST]
       }),
       transp: this.fb.group({
         modFrete: this.fb.group({
@@ -490,19 +492,19 @@ export class EditComponent implements OnInit, AfterViewInit {
     this.pLiq = 0.00;
     this.pBru = 0.00;
     this.qVol = 0.00;
-    this.vbc = 0.00;
-    this.vicms = 0.00;
-    this.vbcst = 0.00;
-    this.vst = 0.00;
+    this.vBC = 0.00;
+    this.vICMS = 0.00;
+    this.vBCST = 0.00;
+    this.vST = 0.00;
     this.vProd = 0.00;
     this.vFrete = 0.00;
     this.vSeg = 0.00;
     this.vDesc = 0.00;
-    this.vipi = 0.00;
-    this.vpis = 0.00;
-    this.vcofins = 0.00;
+    this.vIPI = 0.00;
+    this.vPIS = 0.00;
+    this.vCOFINS = 0.00;
     this.vOutro = 0.00;
-    this.vnf = 0.00;
+    this.vNF = 0.00;
 
     const control = <FormArray>this.form.controls.itens;
     const itens = control.value;
@@ -510,40 +512,38 @@ export class EditComponent implements OnInit, AfterViewInit {
       this.pLiq += i.pesoLiquido;
       this.pBru += i.pesoBruto;
       this.qVol += i.quantidade;
-      if (i.modBCICMS) {
-        if (i.modBCICMS.valor === '3') {
-          this.vbc += i.vBCICMS;
-        }
-      }
-      this.vicms += i.detFiscal.icms.vICMS;
-      this.vbcst += i.detFiscal.icms.vBCST;
-      this.vst += i.detFiscal.icms.vICMSST;
+      this.vBC += i.detFiscal.icms.vBCICMS;
+      this.vICMS += i.detFiscal.icms.vICMS;
+      this.vBCST += i.detFiscal.icms.vBCST;
+      this.vST += i.detFiscal.icms.vICMSST;
       this.vProd += i.subtotal;
       this.vFrete += i.vFrete;
       this.vSeg += i.vSeg;
       this.vDesc += i.vDesc;
-      this.vipi += i.detFiscal.ipi.vIPI;
-      this.vpis += i.detFiscal.pis.vPIS;
-      this.vcofins += i.detFiscal.cofins.vCOFINS;
+      this.vIPI += i.detFiscal.ipi.vIPI;
+      this.vPIS += i.detFiscal.pis.vPIS;
+      this.vCOFINS += i.detFiscal.cofins.vCOFINS;
       this.vOutro += i.vOutro;
+      this.vII += i.vII;
+      this.vTotTrib += i.detFiscal.vTotTrib;
     });
-    this.vnf = this.vProd - this.vDesc + this.vst + this.vFrete + this.vSeg + this.vOutro + this.vipi;
+    this.vNF = this.vProd - this.vDesc + this.vST + this.vFrete + this.vSeg + this.vOutro + this.vIPI;
     const total = {
       vDesc: this.vDesc,
       vFrete: this.vFrete,
       vOutro: this.vOutro,
       vProd: this.vProd,
       vSeg: this.vSeg,
-      vTotTrib: 0.00,
-      vbc: this.vbc,
-      vbcst: this.vbcst,
-      vcofins: this.vcofins,
-      vicms: this.vicms,
-      vii: 0.00,
-      vipi: this.vipi,
-      vnf: this.vnf,
-      vpis: this.vpis,
-      vst: this.vst
+      vTotTrib: this.vTotTrib,
+      vBC: this.vBC,
+      vBCST: this.vBCST,
+      vCOFINS: this.vCOFINS,
+      vICMS: this.vICMS,
+      vII: this.vII,
+      vIPI: this.vIPI,
+      vNF: this.vNF,
+      vPIS: this.vPIS,
+      vST: this.vST
     };
     this.form.get('total').patchValue(total);
 
@@ -557,7 +557,7 @@ export class EditComponent implements OnInit, AfterViewInit {
               valor: '01',
               descricao: 'Dinheiro'
           },
-          vPag: this.vnf,
+          vPag: this.vNF,
           card: null
       }]
   };

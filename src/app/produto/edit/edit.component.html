@@ -22,7 +22,7 @@
             <input matInput formControlName="descricao" placeholder="Descrição">
           </mat-form-field>
         <mat-form-field fxFlex="30%">
-          <input matInput currencyMask [options]="{precision: 4}" (blur)="updateVuntrib()" formControlName="precoVenda" placeholder="Preço">
+          <input matInput eiaNumero minFractionDigits="2" (blur)="updateVuntrib()" formControlName="precoVenda" placeholder="Preço">
         </mat-form-field>
     </div>
 
@@ -53,17 +53,17 @@
           <mat-icon matSuffix (click)="changeUnidadeTrib()">search</mat-icon>
         </mat-form-field>
         <mat-form-field fxFlex="22%">
-          <input matInput currencyMask [options]="{precision: 4}" formControlName="vuntrib" placeholder="Val. Unid. Trib.">
+          <input matInput eiaNumero minFractionDigits="2" maxFractionDigits="2" formControlName="vuntrib" placeholder="Val. Unid. Trib.">
         </mat-form-field>
     </div>
 
     <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px"
         fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="0">
         <mat-form-field fxFlex="15%">
-          <input matInput currencyMask [options]="{precision: 3}" formControlName="pesoBruto" placeholder="Peso Bruto">
+          <input matInput eiaNumero minFractionDigits="3" maxFractionDigits="3" formControlName="pesoBruto" placeholder="Peso Bruto">
         </mat-form-field>
         <mat-form-field fxFlex="15%">
-          <input matInput currencyMask [options]="{precision: 3}" formControlName="pesoLiquido" placeholder="Peso Liquido">
+          <input matInput eiaNumero minFractionDigits="3" maxFractionDigits="3" formControlName="pesoLiquido" placeholder="Peso Liquido">
         </mat-form-field>
         <mat-form-field fxFlex="70%">
           <input matInput formControlName="localizacao" placeholder="Localização">

@@ -13,7 +13,7 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field fxFlex="25%">
-          <input matInput formControlName="valor" currencyMask placeholder="Valor">
+          <input matInput formControlName="valor" placeholder="Valor" eiaNumero minFractionDigits="2" maxFractionDigits="2">
         </mat-form-field>
         <mat-form-field formGroupName="conta" fxFlex="35%">
           <input matInput readonly formControlName="descricao" placeholder="Conta">

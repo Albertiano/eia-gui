@@ -29,8 +29,6 @@ import {
   MatCheckboxModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask/src/currency-mask.config';
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 
 import { DefaultLayoutComponent } from './default-layout/default-layout.component';
@@ -39,16 +37,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthHttp } from '../auth/auth-http';
 
 registerLocaleData(localePt, 'pt');
-
-export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
-  align: 'right',
-  allowNegative: true,
-  decimal: ',',
-  precision: 2,
-  prefix: '',
-  suffix: '',
-  thousands: '.'
-};
 
 @NgModule({
   imports: [
@@ -59,7 +47,6 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CurrencyMaskModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
@@ -88,7 +75,6 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CurrencyMaskModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
@@ -113,7 +99,6 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   providers: [
     Title,
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: 'pt-br' },
-    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
     AuthHttp
   ],
   declarations: [DefaultLayoutComponent, NotAuthorizedComponent, NotFoundComponent],

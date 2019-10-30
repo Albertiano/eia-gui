@@ -189,7 +189,21 @@ export class DestinoEditComponent implements OnInit, AfterViewInit {
     this.form.get('ipi').patchValue(val);
   }
 
+  converterIcms() {
+    this.form.get('icms').get('pRedBCST').setValue(this.numeroConversor.parse(this.form.get('icms').get('pRedBCST').value));
+    this.form.get('icms').get('pMVAST').setValue(this.numeroConversor.parse(this.form.get('icms').get('pMVAST').value));    
+    this.form.get('icms').get('vBCST').setValue(this.numeroConversor.parse(this.form.get('icms').get('vBCST').value));
+    this.form.get('icms').get('pICMSST').setValue(this.numeroConversor.parse(this.form.get('icms').get('pICMSST').value));
+    this.form.get('icms').get('vICMSST').setValue(this.numeroConversor.parse(this.form.get('icms').get('vICMSST').value));
+    this.form.get('icms').get('pCredSN').setValue(this.numeroConversor.parse(this.form.get('icms').get('pCredSN').value));
+    this.form.get('icms').get('vCredICMSSN').setValue(this.numeroConversor.parse(this.form.get('icms').get('vCredICMSSN').value));
+    this.form.get('icms').get('pRedBCICMS').setValue(this.numeroConversor.parse(this.form.get('icms').get('pRedBCICMS').value));
+    this.form.get('icms').get('pICMS').setValue(this.numeroConversor.parse(this.form.get('icms').get('pICMS').value));
+    this.form.get('icms').get('vICMS').setValue(this.numeroConversor.parse(this.form.get('icms').get('vICMS').value));
+  }
+
   save() {
+    this.converterIcms();
     this.dialogRef.close(this.form.value);
   }
 

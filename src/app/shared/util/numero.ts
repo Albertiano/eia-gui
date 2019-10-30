@@ -6,9 +6,13 @@ export class NumeroConversor {
     if (typeof value === 'number') {
       return value;
     }
-    const v = value
+    if (value) {
+      const v = value
       .replace('.', '')
       .replace(',', '.');
     return Number(v);
+    } else {
+      return Number(0);
+    }
   }
 }
